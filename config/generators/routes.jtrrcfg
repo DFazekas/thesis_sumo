@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!-- 
+  Author: Devon Fazekas
+  This file is a configuration for how to generate the routes data file.
+ -->
+
+<configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/jtrrouterConfiguration.xsd">
+
+  <input>
+    <net-file value="../data/network.net.xml" />
+    <route-files value="../data/flows.xml" />
+    <additional-files value="vehicleTypes.add.xml" />
+  </input>
+
+  <output>
+    <output-file value="../data/routes.xml" />
+  </output>
+
+  <processing>
+    <turn-defaults value="25,50,25" />
+    <accept-all-destinations value="true" />
+  </processing>
+
+</configuration>

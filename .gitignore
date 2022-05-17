@@ -1,2 +1,7 @@
 output/screenshots/*
-output/graphs/
+!output/screenshots/.gitkeep
+
+output/graphs/*
+!output/graphs/readme.md
+
+config/data/*

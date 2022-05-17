@@ -1,7 +1,12 @@
-output/screenshots/*
-!output/screenshots/.gitkeep
-
-output/graphs/*
-!output/graphs/readme.md
-
+# Config metadata.
 config/data/*
+!config/data/readme.md
+
+# Output data.
+output/data/*
+output/graphs/*
+output/screenshots/*
+!output/data/readme.md
+!output/graphs/readme.md
+!output/screenshots/readme.md
+

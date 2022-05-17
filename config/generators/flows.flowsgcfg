@@ -16,5 +16,5 @@
   <flows value="1" />
   <fringe-factor value="100.0" />
   <jtrrouter value="True" />
-  <trip-attributes value="departPos='random' departSpeed='max' type='C_ER'" />
+  <trip-attributes value="departPos='random' departSpeed='max' type='distribution_1'" />
 </configuration>

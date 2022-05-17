@@ -4,17 +4,39 @@
   Author: Devon Fazekas
   This file is a configuration for the randomTrips.py script, for how to generate the flow data file.
 
+  When running randomTrips.py twice with the same parameters, the same results will be created because 
+  the random number generator is initialized with the same value.
+
  -->
 
 <configuration>
   <!-- Import the network file to generate flows through. -->
   <net-file value="config/data/network.net.xml" />
-  <!-- Output the flow data -->
+
+  <!-- Output the flow data. -->
   <output-trip-file value="config/data/flows.xml" />
+
+  <!-- First vehicle departure time. -->
   <begin value="0" />
+
+  <!-- End of departure interval (if undefined, defaults to 24 hours). -->
   <end value="100" />
+
+  <!-- If this is set, the number of departures per second will be drawn from a binomial distribution 
+    with n=N and p=PERIOD/N where PERIOD is the argument given to period. -->
+  <binomial value="10" />
+
   <flows value="1" />
+
+  <!-- Increases the probability that trips will start/end at the fringe of the network. 
+    If the value 10 is given, edges that have no successor or no predecessor will be 
+    10 times more likely to be chosen as start- or endpoint of a trip. This is useful 
+    when modelling through-traffic which starts and ends at the outside of the simulated area. -->
   <fringe-factor value="100.0" />
+
+  <!-- Create flows without destination as input for jtrrouter. -->
   <jtrrouter value="True" />
+
+  <!-- Additional trip attributions. -->
   <trip-attributes value="departPos='random' departSpeed='max' type='distribution_1'" />
 </configuration>

@@ -1,9 +1,12 @@
+#!/usr/bin/env python3
+
 # @file   runner.py
 # @author Devon Fazekas
 # @date   2022-05-04
 
 from __future__ import absolute_import
 from __future__ import print_function
+from asyncio import subprocess
 import optparse
 from termcolor import colored
 
@@ -40,6 +43,8 @@ def run():
   # print("Computing edge-usage...")
   # call([countEdgeUsageBinary, "config/data/routes.xml", "-o", "output/data/countEdgeUsage.xml", "--intermediate"])
   # print("Edge-usage computed.")
+
+  process_conflicts()
 
   generate_graphs()
   sys.stdout.flush()
@@ -79,6 +84,10 @@ def run_simulation():
   print(colored(">> Running simulation...", "yellow"))
   retCode = call([sumoBinary, '-c', 'config/simulation/main.sumocfg', '-e', simulationDuration], stdout=sys.stdout, stderr=sys.stderr)
   print(f"Simulation closed with status: ({retCode}).\n")
+
+def process_conflicts():
+  import xml_to_df
+  xml_to_df.main(xml_to_df.get_options(['--xml', 'output/data/ssm_reports.xml', '--cols', 'begin,end,foe,ego,time,type,value', '-o', 'output/data/conflicts.csv']))
 
 def generate_graphs():
   """Generate graphs based on the output FCD data."""

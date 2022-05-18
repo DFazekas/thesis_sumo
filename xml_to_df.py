@@ -1,3 +1,5 @@
+#!/usr/bin/env python3
+
 import pandas as pd
 import xml.etree.ElementTree as et
 import os

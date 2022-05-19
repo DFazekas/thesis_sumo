@@ -1,10 +1,12 @@
 #!/usr/bin/env python3
 
+from datetime import datetime
 import pandas as pd
 import xml.etree.ElementTree as et
 import os
 import sys
 from termcolor import colored
+from pathlib import Path
 
 if 'SUMO_HOME' in os.environ:
     sys.path.append(os.path.join(os.environ['SUMO_HOME'], 'tools'))
@@ -12,6 +14,7 @@ import sumolib  # noqa
 
 data = []
 verbose = False
+timestamped = True
 
 def get_options(args=None):
   optParser = sumolib.options.ArgumentParser(description="Convert an XML file into a Pandas dataframe.")
@@ -19,6 +22,7 @@ def get_options(args=None):
   optParser.add_argument("--xml", dest="xmlFile", help="[Required] Define the XML file.")
   optParser.add_argument("-o", "--output-file", dest="outputFile", default="output/data/df.csv", help="Define the output filepath.")
   optParser.add_argument("--verbose", dest="verbose", type=bool, default=False, help="Verbose logging.")
+  optParser.add_argument("--timestamp", dest="timestamp", type=bool, default=True, help="Appends the current time to the end of the output file name.")
   options = optParser.parse_args(args=args)
 
   # Column names are required.
@@ -32,6 +36,10 @@ def get_options(args=None):
   if options.verbose is True:
     global verbose
     verbose = True
+
+  if options.timestamp is False:
+    global timestamped
+    timestamped = False
 
   return options
 
@@ -76,7 +84,15 @@ def log(msg):
     print(msg)
 
 def exportToFile(filepath, data):
-  data.to_csv(filepath, sep=",", index=False)
+
+  timestamp = ""
+  if (timestamped == True):
+    timestamp = datetime.now().strftime('%Y_%m_%d-%H_%M_%S')
+  
+  path = Path(filepath)
+  newFilePath = "{0}{1}{2}".format(Path.joinpath(path.parent, path.stem), ("_"+timestamp), path.suffix)
+
+  data.to_csv(newFilePath, sep=",", index=False)
 
 def main(options):
   df = parse_XML(options.xmlFile, options.colNames)

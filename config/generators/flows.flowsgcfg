@@ -12,8 +12,8 @@
   <!-- Output the flow data -->
   <output-trip-file value="config/data/flows.xml" />
   <begin value="0" />
-  <end value="100" />
-  <flows value="1" />
+  <end value="1000" />
+  <flows value="20" />
   <fringe-factor value="100.0" />
   <jtrrouter value="True" />
   <trip-attributes value="departPos='random' departSpeed='max' type='distribution_1'" />

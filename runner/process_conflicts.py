@@ -12,11 +12,14 @@ def main():
     #     '--cols', 'begin,end,foe,ego,time,type,value',
     #     '-o', 'output/data/conflicts.csv']))
 
-    runPythonFile(
+    res = runPythonFile(
         [
             "python", xml_to_df.__file__,
             '--xml', 'output/data/ssm_reports.xml',
             '--cols', 'begin,end,foe,ego,time,type,value',
-            '-o', 'output/data/conflicts.csv'
+            '-o', 'output/data/conflicts.csv',
+            # "--verbose", "True"
         ],
         "Conflicts file processed.")
+    if (res):
+        print(res)

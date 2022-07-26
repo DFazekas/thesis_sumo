@@ -37,6 +37,8 @@ def main(sumoBinary):
 
     rn.process_conflicts.main()
 
+    rn.generate_graphs.main()
+
     sys.stdout.flush()
 
 

@@ -1,2 +1,0 @@
-# Do not delete this folder.
-The files of this folder are generated from the schemas within the **generators** folder, but they require the output directory to exist. Therefore, this folder (**data**) must not be deleted.

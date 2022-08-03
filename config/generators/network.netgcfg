@@ -7,12 +7,14 @@
 
 <configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/netgenerateConfiguration.xsd">
 
+  <!-- Builds a random asymetrical network. -->
   <random_network>
     <rand value="true" />
     <rand.iterations value="100" />
     <rand.grid value="true" />
   </random_network>
 
+  <!-- Controls where to output the resulting network. -->
   <output>
     <output-file value="../data/network.net.xml" />
   </output>

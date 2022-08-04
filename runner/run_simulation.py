@@ -8,11 +8,10 @@ def main(sumoBinary, configFilePath):
     """Run Sumo using the configuration file."""
 
     print(colored(">> Running simulation...", "yellow"))
-    res = runPythonFile([
+    runPythonFile([
         sumoBinary,
         '-c', configFilePath,
         '-e', SIM_DURATION
-    ], "Simultion over.")
+    ], "Simultion over.", True)
 
-    if res:
-        print(res)
+# TODO: Ensure graphs still generate.

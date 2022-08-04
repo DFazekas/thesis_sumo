@@ -1,0 +1,63 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<configuration>
+  <input>
+    <!-- Load road network description from FILE -->
+    <net-file value="../data/network.net.xml" />
+
+    <!-- Load routes descriptions from FILE(s) -->
+    <route-files value="../data/routes.xml" />
+
+    <!-- Load further descriptions from FILE(s) -->
+    <additional-files value="edgeData.add.xml" />
+
+    <!-- Load GUI visualization settings -->
+    <gui-settings-file value="edge_visualization.xml" />
+  </input>
+
+  <output>
+    <!-- Restrict fcd output to the edge selection from the given input file -->
+    <!-- Uses the provided list of edges, if any, to filter out the FCD output data. -->
+    <!-- Comment-out this line to remove the filter on FCD output. -->
+    <!-- <fcd-output.filter-edges.input-file value="../graphs/edges.txt" /> -->
+
+    <!-- Save the Floating Car Data -->
+    <fcd-output value="../../output/data/fcd.xml" />
+
+    <!-- Save a lot of information for each timestep (very redundant) -->
+    <full-output value="../../output/data/full_output.xml" />
+
+    <!-- Save aggregated vehicle departure info into FILE -->
+    <summary-output value="../../output/data/summary.xml" />
+
+    <!-- Write overall statistics into FILE -->
+    <statistic-output value="../../output/data/statistics.xml" />
+
+    <!-- Write collision information into FILE -->
+    <collision-output value="../../output/data/collisions.xml" />
+
+    <!-- Save complete network states into FILE -->
+    <netstate-dump value="../../output/data/netstate_dump.xml" />
+  </output>
+
+  <processing>
+    <ignore-route-errors value="true" />
+    <time-to-teleport value="-1" />
+  </processing>
+
+  <report>
+    <verbose value="true" />
+    <duration-log.statistics value="true" />
+    <no-step-log value="true" />
+  </report>
+
+  <ssm_device>
+    <device.ssm.file value="../../output/data/ssm_reports.xml" />
+  </ssm_device>
+
+  <gui_only>
+    <delay value="200" />
+    <start value="true" />
+  </gui_only>
+
+</configuration>

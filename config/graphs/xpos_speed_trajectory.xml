@@ -1,6 +1,0 @@
-<configuration>
-  <label value="X-Position Vs. Speed" />
-  <!-- <legend value="True"/> -->
-  <output value="output/graphs/xpos_speed_trajectory" />
-  <trajectory-type value="xs" />
-</configuration>

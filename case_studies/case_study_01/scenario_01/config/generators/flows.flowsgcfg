@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!-- 
+  Author: Devon Fazekas
+  This file is a configuration for the randomTrips.py script, for how to generate the flow data file.
+
+ -->
+
+<configuration>
+  <!-- Import the network file to generate flows through. -->
+  <net-file value="config/data/network.net.xml" />
+  <!-- Output the flow data -->
+  <output-trip-file value="config/data/flows.xml" />
+  <begin value="0" />
+  <end value="1000" />
+  <flows value="20" />
+  <fringe-factor value="100.0" />
+  <jtrrouter value="True" />
+  <trip-attributes value="departPos='random' departSpeed='max' type='distribution_1'" />
+</configuration>

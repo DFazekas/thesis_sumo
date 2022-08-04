@@ -1,6 +1,6 @@
 from termcolor import colored
 from .utils import runPythonFile
-from output.utils import generate_graph_conflict_heatmap
+from utils import generate_graph_conflict_heatmap
 
 # def main():
 #     """Generate graphs based on the output FCD data."""
@@ -16,22 +16,13 @@ from output.utils import generate_graph_conflict_heatmap
 #     print("Graphs generated.\n")
 
 
-def main():
+def main(inputFilePaths, outputFilePath):
     """Generate graphs."""
 
     print(colored(">> Generating heatmap...", "yellow"))
 
-    files = [
-        "C:\\Users\\thoma\\OneDrive\\Documents\\Thesis\\drafts\\thesis_sumo\\output\\data\\conflicts_2022_07_25-18_21_54.csv",
-        "C:\\Users\\thoma\\OneDrive\\Documents\\Thesis\\drafts\\thesis_sumo\\output\\data\\conflicts_2022_07_25-18_34_13.csv",
-        "C:\\Users\\thoma\\OneDrive\\Documents\\Thesis\\drafts\\thesis_sumo\\output\\data\\conflicts_2022_07_25-19_05_01.csv",
-        "C:\\Users\\thoma\\OneDrive\\Documents\\Thesis\\drafts\\thesis_sumo\\output\\data\\conflicts_2022_07_25-19_06_32.csv"
-    ]
-
-    res = runPythonFile([
+    runPythonFile([
         "python", generate_graph_conflict_heatmap.__file__,
-        "--files", ",".join(files)
-    ], "Heatmap generated.")
-
-    if res:
-        print(res)
+        "--files", ",".join(inputFilePaths),
+        "-o", outputFilePath
+    ], "Heatmap generated.", True)

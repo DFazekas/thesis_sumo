@@ -1,6 +1,0 @@
-<configuration>
-  <label value="Time Vs. Speed" />
-  <!-- <legend value="True"/> -->
-  <output value="output/graphs/time_v_speed_trajectory" />
-  <trajectory-type value="ts" />
-</configuration>

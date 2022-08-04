@@ -1,7 +1,13 @@
-output/screenshots/*
-!output/screenshots/.gitkeep
+output/screenshots/
+output/graphs/
+output/data/
+config/data/
 
-output/graphs/*
-!output/graphs/readme.md
+*.pyc
+**/__pycache__/
 
-config/data/*
+case_studies/**/config/data/
+case_studies/**/output/data/
+case_studies/**/output/graphs/
+
+**/logs.txt

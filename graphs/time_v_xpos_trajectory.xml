@@ -1,0 +1,6 @@
+<configuration>
+  <label value="Time Vs. X-Position" />
+  <!-- <legend value="True"/> -->
+  <output value="output/graphs/time_v_xpos_trajectory" />
+  <trajectory-type value="tx" />
+</configuration>

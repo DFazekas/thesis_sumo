@@ -1,8 +1,9 @@
 import subprocess
 from termcolor import colored
+from datetime import datetime
 
 
-def runPythonFile(fileExecutable, successStr=""):
+def runPythonFile(fileExecutable, successStr="", verbose=False):
     """Runs a Python executable as a subprocess.
 
     Args:
@@ -21,9 +22,33 @@ def runPythonFile(fileExecutable, successStr=""):
             msg = f"\t{colored('Success >>', 'green')} {successStr}\n"
 
         print(msg)
-        return response.stdout
+
+        if verbose:
+            log(response)
+
+        return {response}
     else:
         errors = "\n\t".join(response.stderr.split("\n"))
         print(
             f"\t{colored(errors, 'red')}\n")
-        raise Exception("")
+        raise Exception(errors)
+
+
+def log(process):
+    # Converts all data into strings, removes trailing newlines, and indents newlines.
+    data = {
+        "args": ", ".join(process.args),
+        "returncode": str(process.returncode),
+        "stdout": "\n\t".join(process.stdout.split("\n")).rstrip(),
+        "stderr": "\n\t".join(process.stderr.split("\n")).rstrip()
+    }
+    with open('logs.txt', 'a') as f:
+        # Print time stamp.
+        f.write(f'{datetime.now().strftime("%d/%m/%Y %H:%M:%S")}\n')
+
+        # Print data.
+        for (key, value) in data.items():
+            f.write(f"{key}: {value} \n")
+
+        # Print divider.
+        f.write(f"\n{'='*10}\n\n")

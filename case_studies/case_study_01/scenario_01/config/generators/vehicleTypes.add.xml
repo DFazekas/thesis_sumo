@@ -1,0 +1,197 @@
+<additional>
+
+  <vTypeDistribution id="distribution_1">
+    <!-- ######## Vehicle Types ######## -->
+    <!-- Ordinary Civilian vehicle -->
+    <vType id="Civilian" accel="3.0" decel="6.0" length="5.0" minGap="2.5" maxSpeed="50.0" sigma="0.95" actionStepLength="1.0" 
+      color="white" departSpeed="speedLimit" probability="0.5">
+      <!-- ~~~~~~~~ SSM Device ~~~~~~~~ -->
+      <param key="has.ssm.device" value="true" />
+      <param key="device.ssm.measures" value="TTC" />
+      <param key="device.ssm.thresholds" value="3.0" />
+      <param key="device.ssm.range" value="20.0" />
+      <param key="device.ssm.extratime" value="2.0" />
+      <!-- <param key="device.ssm.file" value="../reports/temp_ssm.xml" /> -->
+      <param key="device.ssm.trajectories" value="false" />
+      <param key="device.ssm.geo" value="false" />
+      <param key="device.ssm.write-positions" value="false" />
+      <param key="device.ssm.write-lane-positions" value="false" />
+
+
+      <!-- ~~~~~~~~ Driver State ~~~~~~~~ -->
+      <!-- <param key="has.driverstate.device" value="true"/> -->
+      <!-- Default = 1.00 -->
+      <!-- <param key="device.driverstate.initialAwareness" value="1.00"/> -->
+      <!-- Default = 100.00 -->
+      <!-- <param key="device.driverstate.errorTimeScaleCoefficient" value="50.00"/> -->
+      <!-- Default = 0.20 -->
+      <!-- <param key="device.driverstate.errorNoiseIntensityCoefficient" value="0.20"/> -->
+      <!-- Default: 0.15 -->
+      <!-- <param key="device.driverstate.speedDifferenceErrorCoefficient" value="0.05"/> -->
+      <!-- Default: 0.75 -->
+      <!-- <param key="device.driverstate.headwayErrorCoefficient" value="0.05"/> -->
+      <!-- Default: 0.10 -->
+      <!-- <param key="device.driverstate.speedDifferenceChangePerceptionThreshold" value="0.05"/> -->
+      <!-- Default: 0.10 -->
+      <!-- <param key="device.driverstate.headwayChangePerceptionThreshold" value="0.05"/> -->
+      <!-- Default: 0.10 -->
+      <!-- <param key="device.driverstate.minAwareness" value="0.05"/> -->
+      <!-- Default: 1.0 -->
+      <!-- <param key="device.driverstate.maximalReactionTime" value="1.0"/> -->
+    </vType>
+
+
+    <!-- Connected Civilian vehicle -->
+    <vType id="C_Civilian" accel="3.0" decel="6.0" length="5.0" minGap="2.5" maxSpeed="50.0" sigma="0.95" color="yellow" departSpeed="speedLimit" probability="0.5">
+      <!-- ~~~~~~~~ SSM Device ~~~~~~~~ -->
+      <param key="has.ssm.device" value="true" />
+      <param key="device.ssm.measures" value="TTC" />
+      <param key="device.ssm.thresholds" value="3.0" />
+      <param key="device.ssm.range" value="20.0" />
+      <param key="device.ssm.extratime" value="2.0" />
+      <!-- <param key="device.ssm.file" value="../reports/temp_ssm.xml" /> -->
+      <param key="device.ssm.trajectories" value="false" />
+      <param key="device.ssm.geo" value="false" />
+      <param key="device.ssm.write-positions" value="false" />
+      <param key="device.ssm.write-lane-positions" value="false" />
+
+
+      <!-- ~~~~~~~~ Driver State ~~~~~~~~ -->
+      <!-- <param key="has.driverstate.device" value="true"/> -->
+      <!-- Default = 1.00 -->
+      <!-- <param key="device.driverstate.initialAwareness" value="1.00"/> -->
+      <!-- Default = 100.00 -->
+      <!-- <param key="device.driverstate.errorTimeScaleCoefficient" value="50.00"/> -->
+      <!-- Default = 0.20 -->
+      <!-- <param key="device.driverstate.errorNoiseIntensityCoefficient" value="0.20"/> -->
+      <!-- Default: 0.15 -->
+      <!-- <param key="device.driverstate.speedDifferenceErrorCoefficient" value="0.05"/> -->
+      <!-- Default: 0.75 -->
+      <!-- <param key="device.driverstate.headwayErrorCoefficient" value="0.05"/> -->
+      <!-- Default: 0.10 -->
+      <!-- <param key="device.driverstate.speedDifferenceChangePerceptionThreshold" value="0.05"/> -->
+      <!-- Default: 0.10 -->
+      <!-- <param key="device.driverstate.headwayChangePerceptionThreshold" value="0.05"/> -->
+      <!-- Default: 0.10 -->
+      <!-- <param key="device.driverstate.minAwareness" value="0.05"/> -->
+      <!-- Default: 1.0 -->
+      <!-- <param key="device.driverstate.maximalReactionTime" value="1.0"/> -->
+    </vType>
+
+
+    <!-- Ordinary ER vehicle -->
+    <vType id="ER" accel="2.0" decel="3.0" length="10.0" minGap="0.05" maxSpeed="50.0" sigma="0.95" speedFactor="1.5" guiShape="firebrigade" vClass="emergency" color="red" departSpeed="speedLimit" jmIgnoreKeepClearTime="0" probability="0.5">
+      <!-- ~~~~~~~~ Bluelight Device ~~~~~~~~ -->
+      <param key="has.bluelight.device" value="true" />
+
+
+      <!-- ~~~~~~~~ SSM Device ~~~~~~~~ -->
+      <param key="has.ssm.device" value="true" />
+      <param key="device.ssm.measures" value="TTC" />
+      <param key="device.ssm.thresholds" value="3.0" />
+      <param key="device.ssm.range" value="20.0" />
+      <param key="device.ssm.extratime" value="2.0" />
+      <!-- <param key="device.ssm.file" value="../reports/temp_ssm.xml" /> -->
+      <param key="device.ssm.trajectories" value="false" />
+      <param key="device.ssm.geo" value="false" />
+      <param key="device.ssm.write-positions" value="false" />
+      <param key="device.ssm.write-lane-positions" value="false" />
+
+
+      <!-- ~~~~~~~~ Driver State ~~~~~~~~ -->
+      <!-- <param key="has.driverstate.device" value="true"/> -->
+      <!-- Default = 1.00 -->
+      <!-- <param key="device.driverstate.initialAwareness" value="1.00"/> -->
+      <!-- Default = 100.00 -->
+      <!-- <param key="device.driverstate.errorTimeScaleCoefficient" value="50.00"/> -->
+      <!-- Default = 0.20 -->
+      <!-- <param key="device.driverstate.errorNoiseIntensityCoefficient" value="0.20"/> -->
+      <!-- Default: 0.15 -->
+      <!-- <param key="device.driverstate.speedDifferenceErrorCoefficient" value="0.05"/> -->
+      <!-- Default: 0.75 -->
+      <!-- <param key="device.driverstate.headwayErrorCoefficient" value="0.05"/> -->
+      <!-- Default: 0.10 -->
+      <!-- <param key="device.driverstate.speedDifferenceChangePerceptionThreshold" value="0.05"/> -->
+      <!-- Default: 0.10 -->
+      <!-- <param key="device.driverstate.headwayChangePerceptionThreshold" value="0.05"/> -->
+      <!-- Default: 0.10 -->
+      <!-- <param key="device.driverstate.minAwareness" value="0.05"/> -->
+      <!-- Default: 1.0 -->
+      <!-- <param key="device.driverstate.maximalReactionTime" value="1.0"/> -->
+    </vType>
+
+
+    <!-- Connected ER vehicle -->
+    <vType id="C_ER" accel="2.0" decel="3.0" length="10.0" minGap="0.05" maxSpeed="50.0" sigma="0.95" speedFactor="1.5" guiShape="firebrigade" vClass="emergency" color="yellow" departSpeed="speedLimit" jmIgnoreKeepClearTime="0" probability="0.5">
+      <!-- ~~~~~~~~ Bluelight Device ~~~~~~~~ -->
+      <param key="has.bluelight.device" value="true" />
+
+      <!-- ~~~~~~~~ SSM Device ~~~~~~~~ -->
+      <param key="has.ssm.device" value="true" />
+      <param key="device.ssm.measures" value="TTC" />
+      <param key="device.ssm.thresholds" value="3.0" />
+      <param key="device.ssm.range" value="20.0" />
+      <param key="device.ssm.extratime" value="2.0" />
+      <!-- <param key="device.ssm.file" value="../reports/temp_ssm.xml" /> -->
+      <param key="device.ssm.trajectories" value="false" />
+      <param key="device.ssm.geo" value="false" />
+      <param key="device.ssm.write-positions" value="false" />
+      <param key="device.ssm.write-lane-positions" value="false" />
+
+
+      <!-- <param key="has.driverstate.device" value="true"/> -->
+      <!-- Default = 1.00 -->
+      <!-- <param key="device.driverstate.initialAwareness" value="1.00"/> -->
+      <!-- Default = 100.00 -->
+      <!-- <param key="device.driverstate.errorTimeScaleCoefficient" value="50.00"/> -->
+      <!-- Default = 0.20 -->
+      <!-- <param key="device.driverstate.errorNoiseIntensityCoefficient" value="0.20"/> -->
+      <!-- Default: 0.15 -->
+      <!-- <param key="device.driverstate.speedDifferenceErrorCoefficient" value="0.05"/> -->
+      <!-- Default: 0.75 -->
+      <!-- <param key="device.driverstate.headwayErrorCoefficient" value="0.05"/> -->
+      <!-- Default: 0.10 -->
+      <!-- <param key="device.driverstate.speedDifferenceChangePerceptionThreshold" value="0.05"/> -->
+      <!-- Default: 0.10 -->
+      <!-- <param key="device.driverstate.headwayChangePerceptionThreshold" value="0.05"/> -->
+      <!-- Default: 0.10 -->
+      <!-- <param key="device.driverstate.minAwareness" value="0.05"/> -->
+      <!-- Default: 1.0 -->
+      <!-- <param key="device.driverstate.maximalReactionTime" value="1.0"/> -->
+    </vType>
+  </vTypeDistribution>
+
+  <!-- ######## Induction Loops ######## -->
+  <!-- Induction Loops -->
+  <!-- <inductionLoop id="loop0" lane="edge0_0" pos="5" freq="3600" file="../reports/temp_inductionloops.xml" />
+  <inductionLoop id="loop1" lane="edge1_0" pos="0" freq="3600" file="../reports/temp_inductionloops.xml" />
+  <inductionLoop id="loop2" lane="edge2_0" pos="0" freq="3600" file="../reports/temp_inductionloops.xml" />
+  <inductionLoop id="loop3" lane="edge3_0" pos="0" freq="3600" file="../reports/temp_inductionloops.xml" />
+  <inductionLoop id="loop4" lane="edge4_0" pos="0" freq="3600" file="../reports/temp_inductionloops.xml" /> -->
+
+
+  <!-- Rerouters -->
+  <!-- <rerouter id="rerouter0" edges="l8" probability="0.4">
+    <interval begin="0" end="10000">
+      <destProbReroute id="l2" />
+    </interval>
+  </rerouter>
+
+  <rerouter id="rerouter1" edges="l2" probability="0.4">
+    <interval begin="0" end="10000">
+      <destProbReroute id="l8" />
+    </interval>
+  </rerouter>
+
+  <rerouter id="rerouter2" edges="l1" probability="0.02">
+    <interval begin="0" end="10000">
+      <destProbReroute id="l16" />
+    </interval>
+  </rerouter>
+
+  <rerouter id="rerouter3" edges="l11" probability="0.02">
+    <interval begin="0" end="10000">
+      <destProbReroute id="l19" />
+    </interval>
+  </rerouter> -->
+</additional>

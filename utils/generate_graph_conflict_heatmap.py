@@ -39,12 +39,12 @@ def get_data(file, label):
     return result
 
 
-def generate_heatmap(data):
+def generate_heatmap(data, options):
     graph = sns.heatmap(data, cmap="flare")
     graph.set_title('Frequency of Conflict Types')
     graph.set_xlabel('PR (%)')
     graph.set_ylabel('Type')
-    plt.savefig('output/graphs/conflicts.png')
+    plt.savefig(options.output)
 
 
 def get_options(args=None):
@@ -52,6 +52,8 @@ def get_options(args=None):
         description="Generates a heatmap from conflict data.")
     optParser.add_argument("--files", dest="files",
                            help="[Required] Comma-separated list of conflict data files.")
+    optParser.add_argument("-o", "--output", dest="output",
+                           default="graphs/heatmap.png", help="define the output graph filename.")
     options = optParser.parse_args(args=args)
 
     # Files are required.
@@ -77,7 +79,7 @@ def main(options):
         left, right, on=["type"], how='outer'), allData).fillna(0)
 
     # Generate the heatmap from the aggregated data.
-    generate_heatmap(mergedData)
+    generate_heatmap(mergedData, options)
 
 
 if __name__ == "__main__":

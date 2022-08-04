@@ -10,6 +10,7 @@ import os
 import sys
 from sumolib import checkBinary  # noqa
 import runner as rn
+from case_studies.case_study_01.scenario_01 import main as sc_01
 
 # Enables the Windows OS to apply color in their terminal.
 os.system('color')
@@ -27,19 +28,7 @@ except ImportError:
 def main(sumoBinary):
     """Generates all prerequisite files to run the simulation, export data, and process the data."""
 
-    rn.generate_network_file.main('config/generators/network.netgcfg')
-
-    rn.generate_flows_file.main("config/generators/flows.flowsgcfg")
-
-    rn.generate_routes_files.main('config/generators/routes.jtrrcfg')
-
-    rn.run_simulation.main(sumoBinary, 'config/simulation/main.sumocfg')
-
-    rn.process_conflicts.main()
-
-    rn.generate_graphs.main()
-
-    sys.stdout.flush()
+    sc_01.main(rn, sumoBinary)
 
 
 def get_options():

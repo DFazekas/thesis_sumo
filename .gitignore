@@ -4,4 +4,10 @@ output/data/
 config/data/
 
 *.pyc
-output/utils/__pycache__/
+**/__pycache__/
+
+case_studies/**/config/data/
+case_studies/**/output/data/
+case_studies/**/output/graphs/
+
+**/logs.txt

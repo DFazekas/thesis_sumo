@@ -11,6 +11,7 @@
     <!-- Load further descriptions from FILE(s) -->
     <additional-files value="edgeData.add.xml" />
 
+    <!-- Load GUI visualization settings -->
     <gui-settings-file value="edge_visualization.xml" />
   </input>
 

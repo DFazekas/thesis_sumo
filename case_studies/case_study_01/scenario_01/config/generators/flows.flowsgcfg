@@ -9,12 +9,29 @@
 <configuration>
   <!-- Import the network file to generate flows through. -->
   <net-file value="config/data/network.net.xml" />
+
   <!-- Output the flow data -->
   <output-trip-file value="config/data/flows.xml" />
+
+  <!-- The sim. time (seconds) to depart the first vehicle. -->
   <begin value="0" />
-  <end value="1000" />
-  <flows value="20" />
+
+  <!-- The sim. time (seconds) to depart the last vehicle. -->
+  <end value="15" />
+
+  <!-- Generates INT flows that together output vehicles with the specified period. -->
+  <flows value="4" />
+
+  <!-- Increases the probability that trips will start/end at the fringe of the network. -->
+  <!-- <allow-fringe value="True" /> -->
   <fringe-factor value="100.0" />
+
+  <!-- Creates flows without destinations. -->
   <jtrrouter value="True" />
+
+  <!-- Additional trip attributes. -->
+  <!-- departPos='random' : Randomly choose a position to depart vehicles.  -->
+  <!-- departSpeed='max' : Depart vehicles at max speed. -->
+  <!-- type='distribution_1' :  -->
   <trip-attributes value="departPos='random' departSpeed='max' type='distribution_1'" />
 </configuration>

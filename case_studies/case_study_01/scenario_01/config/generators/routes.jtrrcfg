@@ -8,18 +8,27 @@
 <configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/jtrrouterConfiguration.xsd">
 
   <input>
-    <net-file value="../data/network.net.xml" />
+    <!-- The network to create the routes on. -->
+    <!-- <net-file value="../data/network.net.xml" /> -->
+
+    <!-- The vehicle flows to apply. -->
     <route-files value="../data/flows.xml" />
+
+    <!-- Custom vehicle types to apply. -->
     <additional-files value="vehicleTypes.add.xml" />
   </input>
 
   <output>
+    <!-- The generated routes file. -->
     <output-file value="../data/routes.xml" />
   </output>
 
   <processing>
+    <!-- <sink-edges value="primary_lane_04" />
+    <turn-defaults value="0,1,0" /> -->
     <turn-defaults value="25,50,25" />
     <accept-all-destinations value="true" />
+    <!-- <accept-all-destinations value="true" /> -->
   </processing>
 
 </configuration>

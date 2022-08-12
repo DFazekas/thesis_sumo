@@ -8,8 +8,7 @@ import optparse
 from termcolor import colored
 import os
 import sys
-from sumolib import checkBinary  # noqa
-# import runner as rn
+from sumolib import checkBinary
 
 # Enables the Windows OS to apply color in their terminal.
 os.system('color')
@@ -27,24 +26,25 @@ except ImportError:
 def main(runner, sumoBinary):
     """Generates all prerequisite files to run the simulation, export data, and process the data."""
     dir = os.path.dirname(__file__)
+    networkFile = f'{dir}/config/data/simple_grid.net.xml'
 
     # Generate network file from config generator.
-    runner.generate_network_file.main(
-        f'{dir}/config/generators/network.netgcfg',
-        f'{dir}/config/data/network.net.xml'
-    )
+    # runner.generate_network_file.main(
+    #     configFilePath=f'{dir}/config/generators/network.netgcfg',
+    #     outputFilePath=f'{dir}/config/data/network.net.xml'
+    # )
 
     # Generate flows file from config generator.
     runner.generate_flows_file.main(
         configFilePath=f"{dir}/config/generators/flows.flowsgcfg",
-        networkFilePath=f'{dir}/config/data/network.net.xml',
+        networkFilePath=networkFile,
         outputFilePath=f'{dir}/config/data/flows.xml'
     )
 
     # Generate routes file from config generator.
     runner.generate_routes_files.main(
         configFilePath=f'{dir}/config/generators/routes.jtrrcfg',
-        networkFilePath=f'{dir}/config/data/network.net.xml',
+        networkFilePath=networkFile,
         routesFilePath=f'{dir}/config/data/flows.xml',
         vehicleTypeFilePath=f'{dir}/config/generators/vehicleTypes.add.xml',
         outputFilePath=f'{dir}/config/data/routes.xml'
@@ -53,23 +53,31 @@ def main(runner, sumoBinary):
     # Run simulation.
     # TODO: Code smell - relative paths used. Should use dependency injection.
     runner.run_simulation.main(
-        sumoBinary, f'{dir}/config/simulation/main.sumocfg')
+        sumoBinary, f'{dir}/config/simulation/main.sumocfg',
+        [
+            "-X", "always",
+            "-n", networkFile,
+
+        ])
+
+    # TODO: Inject a single EV. Can't use the distribution for the other civilian vehicles.
 
     # Convert ssm reports from XML format into CSV format.
-    runner.process_conflicts.main(
-        inputFilePath=f"{dir}/output/data/ssm_reports.xml",
-        outputFilePath=f"{dir}/output/data/conflicts.csv")
+    # runner.process_conflicts.main(
+    #     inputFilePath=f"{dir}/output/data/ssm_reports.xml",
+    #     outputFilePath=f"{dir}/output/data/conflicts.csv")
 
     # Generate graphs from ssm reports (CSV format).
-    files = [
-        "C:\\Users\\thoma\\OneDrive\\Documents\\Thesis\\drafts\\thesis_sumo\\case_studies\\case_study_01\\scenario_01\\output\\data\\conflicts_2022_08_04-18_21_15.csv",
-        "C:\\Users\\thoma\\OneDrive\\Documents\\Thesis\\drafts\\thesis_sumo\\case_studies\\case_study_01\\scenario_01\\output\\data\\conflicts_2022_08_04-18_29_26.csv",
-        "C:\\Users\\thoma\\OneDrive\\Documents\\Thesis\\drafts\\thesis_sumo\\case_studies\\case_study_01\\scenario_01\\output\\data\\conflicts_2022_08_04-18_29_59.csv"
-    ]
-    runner.generate_graphs.main(
-        inputFilePaths=files,
-        outputFilePath=f"{dir}/output/graphs/heatmap.png"
-    )
+    # TODO: These files won't exist until after runtime.
+    # files = [
+    #     "C:\\Users\\thoma\\OneDrive\\Documents\\Thesis\\drafts\\thesis_sumo\\case_studies\\case_study_01\\scenario_01\\output\\data\\conflicts_2022_08_04-18_21_15.csv",
+    #     "C:\\Users\\thoma\\OneDrive\\Documents\\Thesis\\drafts\\thesis_sumo\\case_studies\\case_study_01\\scenario_01\\output\\data\\conflicts_2022_08_04-18_29_26.csv",
+    #     "C:\\Users\\thoma\\OneDrive\\Documents\\Thesis\\drafts\\thesis_sumo\\case_studies\\case_study_01\\scenario_01\\output\\data\\conflicts_2022_08_04-18_29_59.csv"
+    # ]
+    # runner.generate_graphs.main(
+    #     inputFilePaths=files,
+    #     outputFilePath=f"{dir}/output/graphs/heatmap.png"
+    # )
 
     sys.stdout.flush()
 

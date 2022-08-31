@@ -1,0 +1,53 @@
+<additional xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/additional_file.xsd">
+
+  <vTypeDistribution id="distribution_1">
+    <!-- Ordinary Civilian vehicle -->
+    <vType id="Civilian" accel="3.0" decel="6.0" length="5.0" minGap="2.5" maxSpeed="50.0" sigma="0.5" actionStepLength="1.0" color="grey" probability="0.5">
+      <!-- ~~~~~~~~ SSM Device ~~~~~~~~ -->
+      <param key="has.ssm.device" value="true" />
+      <param key="device.ssm.measures" value="TTC" />
+      <param key="device.ssm.thresholds" value="3.0" />
+      <param key="device.ssm.range" value="20.0" />
+      <param key="device.ssm.extratime" value="2.0" />
+      <param key="device.ssm.trajectories" value="false" />
+      <param key="device.ssm.geo" value="false" />
+      <param key="device.ssm.write-positions" value="false" />
+      <param key="device.ssm.write-lane-positions" value="false" />
+    </vType>
+
+    <!-- Connected Civilian vehicle -->
+    <vType id="C_Civilian" accel="3.0" decel="6.0" length="5.0" minGap="2.5" maxSpeed="50.0" sigma="0.5" color="blue" probability="0.5">
+      <!-- ~~~~~~~~ SSM Device ~~~~~~~~ -->
+      <param key="has.ssm.device" value="true" />
+      <param key="device.ssm.measures" value="TTC" />
+      <param key="device.ssm.thresholds" value="3.0" />
+      <param key="device.ssm.range" value="20.0" />
+      <param key="device.ssm.extratime" value="2.0" />
+      <param key="device.ssm.trajectories" value="false" />
+      <param key="device.ssm.geo" value="false" />
+      <param key="device.ssm.write-positions" value="false" />
+      <param key="device.ssm.write-lane-positions" value="false" />
+    </vType>
+
+  </vTypeDistribution>
+
+
+  <!-- Ordinary ER vehicle -->
+  <vType id="ER" accel="2.0" decel="3.0" length="10.0" minGap="0.05" maxSpeed="50.0" sigma="0.5" speedFactor="1.5" guiShape="firebrigade" vClass="emergency" color="red" jmIgnoreKeepClearTime="0">
+    <!-- ~~~~~~~~ Bluelight Device ~~~~~~~~ -->
+    <param key="has.bluelight.device" value="true" />
+
+    <!-- ~~~~~~~~ SSM Device ~~~~~~~~ -->
+    <param key="has.ssm.device" value="true" />
+    <param key="device.ssm.measures" value="TTC" />
+    <param key="device.ssm.thresholds" value="3.0" />
+    <param key="device.ssm.range" value="20.0" />
+    <param key="device.ssm.extratime" value="2.0" />
+    <param key="device.ssm.trajectories" value="false" />
+    <param key="device.ssm.geo" value="false" />
+    <param key="device.ssm.write-positions" value="false" />
+    <param key="device.ssm.write-lane-positions" value="false" />
+  </vType>
+
+
+</additional>

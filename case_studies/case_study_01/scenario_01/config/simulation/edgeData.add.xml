@@ -1,8 +1,0 @@
-<additional>
-  <!-- Describes the situation within the network in terms of traffic science
-        by giving macroscopic values such as mean vehicle speed, the mean density, etc.
-        This output can be generated either for lanes, edges, or groups or edges. 
-        
-        Learn more here: https://sumo.dlr.de/docs/Simulation/Output/Lane-_or_Edge-based_Traffic_Measures.html -->
-  <edgeData id="vehData" file="../../output/data/edgeData_vehs.xml" />
-</additional>

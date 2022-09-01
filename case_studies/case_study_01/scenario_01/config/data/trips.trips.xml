@@ -1,0 +1,25 @@
+<routes xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/routes_file.xsd">
+  <trip id="0" depart="0" departSpeed="random" departLane="free" from="origin" to="destination" type='distribution_1' />
+  <trip id="1" depart="2" departSpeed="random" departLane="free" from="origin" to="destination" type='distribution_1' />
+  <trip id="2" depart="3" departSpeed="random" departLane="free" from="origin" to="destination" type='distribution_1' />
+  <trip id="3" depart="5" departSpeed="random" departLane="free" from="origin" to="destination" type='distribution_1' />
+  <trip id="4" depart="7" departSpeed="random" departLane="free" from="origin" to="destination" type='distribution_1' />
+  <trip id="5" depart="8" departSpeed="random" departLane="free" from="origin" to="destination" type='distribution_1' />
+  <trip id="6" depart="9" departSpeed="random" departLane="free" from="origin" to="destination" type='distribution_1' />
+  <trip id="7" depart="10" departSpeed="random" departLane="free" from="origin" to="destination" type='distribution_1' />
+  <trip id="8" depart="11" departSpeed="random" departLane="free" from="origin" to="destination" type='distribution_1' />
+  <trip id="9" depart="12" departSpeed="random" departLane="free" from="origin" to="destination" type='distribution_1' />
+  <trip id="10" depart="13" departSpeed="random" departLane="free" from="origin" to="destination" type='distribution_1' />
+  <trip id="ER" depart="13" departSpeed="random" departLane="free" from="origin" to="destination" type='ER' />
+  <trip id="11" depart="14" departSpeed="random" departLane="free" from="origin" to="destination" type='distribution_1' />
+  <trip id="12" depart="15" departSpeed="random" departLane="free" from="origin" to="destination" type='distribution_1' />
+  <trip id="13" depart="16" departSpeed="random" departLane="free" from="origin" to="destination" type='distribution_1' />
+  <trip id="14" depart="16" departSpeed="random" departLane="free" from="origin" to="destination" type='distribution_1' />
+  <trip id="15" depart="17" departSpeed="random" departLane="free" from="origin" to="destination" type='distribution_1' />
+  <trip id="16" depart="18" departSpeed="random" departLane="free" from="origin" to="destination" type='distribution_1' />
+  <trip id="17" depart="20" departSpeed="random" departLane="free" from="origin" to="destination" type='distribution_1' />
+  <trip id="18" depart="21" departSpeed="random" departLane="free" from="origin" to="destination" type='distribution_1' />
+  <trip id="19" depart="21" departSpeed="random" departLane="free" from="origin" to="destination" type='distribution_1' />
+  <trip id="20" depart="23" departSpeed="random" departLane="free" from="origin" to="destination" type='distribution_1' />
+  <trip id="21" depart="23" departSpeed="random" departLane="free" from="origin" to="destination" type='distribution_1' />
+</routes>

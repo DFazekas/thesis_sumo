@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<configuration>
+<configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/sumoConfiguration.xsd">
   <input>
     <!-- Load road network description from FILE -->
     <net-file value="../data/network.net.xml" />
@@ -8,12 +8,10 @@
     <!-- Load routes descriptions from FILE(s) -->
     <route-files value="../data/routes.xml" />
 
-    <!-- Load further descriptions from FILE(s) -->
-    <additional-files value="edgeData.add.xml" />
-
-    <!-- Load GUI visualization settings -->
-    <gui-settings-file value="edge_visualization.xml" />
+    <!-- Load further descriptions from FILE(s)
+    <additional-files value="edgeData.add.xml" /> -->
   </input>
+
 
   <output>
     <!-- Restrict fcd output to the edge selection from the given input file -->
@@ -52,12 +50,19 @@
   </report>
 
   <ssm_device>
+    <!-- Sets a default file for all aggregating SSM outputs -->
     <device.ssm.file value="../../output/data/ssm_reports.xml" />
   </ssm_device>
 
   <gui_only>
+    <!-- Slows down the simulation time step -->
     <delay value="200" />
+
+    <!-- Auto starts the simulation -->
     <start value="true" />
+
+    <!-- Load GUI visualization settings -->
+    <gui-settings-file value="viewSettings.xml" />
   </gui_only>
 
 </configuration>

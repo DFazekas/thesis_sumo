@@ -28,7 +28,7 @@ except ImportError:
 def main(sumoBinary):
     """Generates all prerequisite files to run the simulation, export data, and process the data."""
 
-    sc_01.main(rn, sumoBinary)
+    sc_01.main()
 
 
 def get_options():

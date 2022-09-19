@@ -32,8 +32,8 @@
   </vTypeDistribution>
 
 
-  <!-- Ordinary ER vehicle -->
-  <vType id="ER" accel="2.0" decel="3.0" length="10.0" minGap="0.05" maxSpeed="50.0" sigma="0.5" speedFactor="1.5" guiShape="firebrigade" vClass="emergency" color="red" jmIgnoreKeepClearTime="0">
+  <!-- Ordinary EV vehicle -->
+  <vType id="EV" accel="2.0" decel="3.0" length="10.0" minGap="0.05" maxSpeed="50.0" sigma="0.5" speedFactor="1.5" guiShape="firebrigade" vClass="emergency" color="red" jmIgnoreKeepClearTime="0">
     <!-- ~~~~~~~~ Bluelight Device ~~~~~~~~ -->
     <param key="has.bluelight.device" value="true" />
 

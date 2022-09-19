@@ -10,7 +10,7 @@
   <trip id="8" depart="11" departSpeed="random" departLane="free" from="origin" to="destination" type='distribution_1' />
   <trip id="9" depart="12" departSpeed="random" departLane="free" from="origin" to="destination" type='distribution_1' />
   <trip id="10" depart="13" departSpeed="random" departLane="free" from="origin" to="destination" type='distribution_1' />
-  <trip id="ER" depart="13" departSpeed="random" departLane="free" from="origin" to="destination" type='ER' />
+  <trip id="EV" depart="13" departSpeed="random" departLane="free" from="origin" to="destination" type='EV' />
   <trip id="11" depart="14" departSpeed="random" departLane="free" from="origin" to="destination" type='distribution_1' />
   <trip id="12" depart="15" departSpeed="random" departLane="free" from="origin" to="destination" type='distribution_1' />
   <trip id="13" depart="16" departSpeed="random" departLane="free" from="origin" to="destination" type='distribution_1' />

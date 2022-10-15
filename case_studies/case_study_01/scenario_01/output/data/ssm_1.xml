@@ -1,0 +1,73 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!-- generated on 2022-10-15 18:34:15 by Eclipse SUMO sumo Version v1_14_1+1008-de138fee043
+<configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/sumoConfiguration.xsd">
+
+    <input>
+        <net-file value="C:\Users\thoma\OneDrive\Documents\Thesis\drafts\thesis_sumo\case_studies\case_study_01\scenario_01\config\simulation/../data/grid.net.xml"/>
+        <route-files value="C:\Users\thoma\OneDrive\Documents\Thesis\drafts\thesis_sumo\case_studies\case_study_01\scenario_01\config\simulation/../data/trips.trips.xml"/>
+        <additional-files value="C:\Users\thoma\OneDrive\Documents\Thesis\drafts\thesis_sumo\case_studies\case_study_01\scenario_01\config\simulation/../data/vehicleTypes.add.xml"/>
+    </input>
+
+    <output>
+        <human-readable-time value="true"/>
+    </output>
+
+    <processing>
+        <lateral-resolution value="0.1"/>
+    </processing>
+
+    <report>
+        <verbose value="true"/>
+    </report>
+
+    <ssm_device>
+        <device.ssm.file value="C:\Users\thoma\OneDrive\Documents\Thesis\drafts\thesis_sumo\case_studies\case_study_01\scenario_01\config\simulation/../../output/data/ssm_1.xml"/>
+    </ssm_device>
+
+    <traci_server>
+        <remote-port value="60653"/>
+    </traci_server>
+
+    <gui_only>
+        <gui-settings-file value="C:\Users\thoma\OneDrive\Documents\Thesis\drafts\thesis_sumo\case_studies\case_study_01\scenario_01\config\simulation/../data/viewSettings.xml"/>
+        <quit-on-end value="true"/>
+        <start value="true"/>
+        <delay value="100"/>
+    </gui_only>
+
+</configuration>
+-->
+
+<SSMLog>
+    <conflict begin="686.00" end="690.00" ego="18" foe="19">
+        <minTTC time="686.00" position="902.50,104.80" type="11" value="2.04"/>
+    </conflict>
+    <conflict begin="686.00" end="690.00" ego="19" foe="18">
+        <minTTC time="686.00" position="902.50,104.80" type="10" value="2.04"/>
+    </conflict>
+    <conflict begin="1726.00" end="1735.00" ego="44" foe="47">
+        <minTTC time="1728.00" position="898.46,1295.20" type="11" value="1.55"/>
+    </conflict>
+    <conflict begin="1733.00" end="1741.00" ego="48" foe="46">
+        <minTTC time="1735.00" position="1301.54,104.80" type="11" value="1.68"/>
+    </conflict>
+    <conflict begin="1838.00" end="1843.00" ego="50" foe="51">
+        <minTTC time="1838.00" position="104.80,497.50" type="11" value="2.39"/>
+    </conflict>
+    <conflict begin="1838.00" end="1843.00" ego="51" foe="50">
+        <minTTC time="1838.00" position="104.80,497.50" type="10" value="2.39"/>
+    </conflict>
+    <conflict begin="2668.00" end="2676.00" ego="71" foe="74">
+        <minTTC time="2669.00" position="110.40,98.40" type="7" value="2.82"/>
+    </conflict>
+    <conflict begin="2668.00" end="2676.00" ego="74" foe="71">
+        <minTTC time="2669.00" position="110.40,98.40" type="7" value="2.82"/>
+    </conflict>
+    <conflict begin="3242.00" end="3247.00" ego="89" foe="87">
+        <minTTC time="3242.00" position="898.46,1295.20" type="10" value="1.42"/>
+    </conflict>
+    <conflict begin="3242.00" end="3249.00" ego="87" foe="89">
+        <minTTC time="3242.00" position="898.46,1295.20" type="11" value="1.42"/>
+    </conflict>
+</SSMLog>

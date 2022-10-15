@@ -1,49 +1,36 @@
 <h1>Generate random network</h1>
 
-Use the **netgenerate** application to generate a random network.
-
-You can either:
-    
-  1. Use bash to generate the network file directly; or
-  2. Use bash to generate a configuration file for the network.
+Networks are the cornerstone to SUMO simulations as they describe the physical roads that traffic drives on.
 
 ---
 
 Table of Contents
-- [Create a network configuration file](#create-a-network-configuration-file)
-  - [Example](#example)
-- [Generate a network from a configuration file](#generate-a-network-from-a-configuration-file)
-  - [Example](#example-1)
+
+- [Create a network](#create-a-network)
+- [What is NetGenerate?](#what-is-netgenerate)
 
 ---
 
-## Create a network configuration file
-With a configuration file, you can more easily reuse the same network.
+## Create a grid network
 
-To generate a configuration file, simply append the `-C [FILE]` option to any **netgenerate** command that would otherwise generate the network.
-
-### Example
-The following command generates a network configuration to the file `config/network.netgcfg`.
+The following command generates a symmetric 4x4 grid network with 400 meter roads between each intersection. Each road has 2 lanes. Each outer edge has an attached road leading outside of the network to help SUMO identify fringes.
 
 ```bash
-netgenerate --grid --grid.number=10 -o ../data/network.net.xml -C config/network.netgcfg
+netgenerate --grid --grid.number=4 --grid.length=400 --grid.attach-length=100 --default.lanenumber=2 --fringe.guess=true --output-file="../data/grid.net.xml"
 ```
 
 Where:
-- `--grid` defines a grid-shaped network.
-- `--grid.number=10` defines a 10x10 grid-shaped network.
-- `-o ../data/network.net.xml` outputs the generated network to a file titled **network.net.xml** in the **data** folder.
-- `-C config/network.netgcfg` outputs the configuration to a file titled **network.netgcfg** in the **config** folder.
+
+- `--grid` enables a grid-shaped network.
+- `--grid.number=[INT]` defines the network size. Value `4` generates a 4x4 grid.
+- `--grid.length=[FLOAT]` defines length of each edge, in meters.
+- `default.lanenumber=[INT]` defines the number of lanes per edge.
+- `--grid.attach-length=[FLOAT]` defines the length of attached edges (fringes), in meters.
+- `--fringe.guess=[TRUE]` enables SUMO to automatically guess which edges are considered fringes.
+- `--output-file=[FILE]` defines the output network file.
 
 ---
 
-## Generate a network from a configuration file
+# What is NetGenerate?
 
-Once you have a network configuration file, you can call it using the `-c [FILE]` option with the following command to generate the actual network file.
-
-### Example
-The following command generates a network file based on the attributes provided within the network configuration file titled `config/network.netgcfg`.
-
-```bash
-netgenerate -c config/network.netgcfg
-```
+[NetGenerate](https://sumo.dlr.de/docs/netgenerate.html) generates abstract road networks to be used by other SUMO applications.

@@ -1,8 +1,8 @@
 <additional xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/additional_file.xsd">
 
-  <vTypeDistribution id="distribution_1">
+  <vTypeDistribution id="civilianVehicles">
     <!-- Ordinary Civilian vehicle -->
-    <vType id="Civilian" accel="3.0" decel="6.0" length="5.0" minGap="2.5" maxSpeed="50.0" sigma="0.5" actionStepLength="1.0" color="grey" probability="0.5">
+    <vType id="Civilian" accel="3.0" decel="6.0" length="5.0" minGap="2.5" maxSpeed="50.0" sigma="0.95" actionStepLength="1.0" color="white" probability="0.5">
       <!-- ~~~~~~~~ SSM Device ~~~~~~~~ -->
       <param key="has.ssm.device" value="true" />
       <param key="device.ssm.measures" value="TTC" />
@@ -16,7 +16,7 @@
     </vType>
 
     <!-- Connected Civilian vehicle -->
-    <vType id="C_Civilian" accel="3.0" decel="6.0" length="5.0" minGap="2.5" maxSpeed="50.0" sigma="0.5" color="blue" probability="0.5">
+    <vType id="C_Civilian" accel="3.0" decel="6.0" length="5.0" minGap="2.5" maxSpeed="50.0" sigma="0.95" color="blue" probability="0.5">
       <!-- ~~~~~~~~ SSM Device ~~~~~~~~ -->
       <param key="has.ssm.device" value="true" />
       <param key="device.ssm.measures" value="TTC" />
@@ -32,8 +32,8 @@
   </vTypeDistribution>
 
 
-  <!-- Ordinary EV vehicle -->
-  <vType id="EV" accel="2.0" decel="3.0" length="10.0" minGap="0.05" maxSpeed="50.0" sigma="0.5" speedFactor="1.5" guiShape="firebrigade" vClass="emergency" color="red" jmIgnoreKeepClearTime="0">
+  <!-- Ordinary ER vehicle -->
+  <vType id="ER" accel="2.0" decel="3.0" length="10.0" minGap="0.05" maxSpeed="50.0" sigma="0.95" speedFactor="1.5" guiShape="firebrigade" vClass="emergency" color="red" jmIgnoreKeepClearTime="0" probability="0.5">
     <!-- ~~~~~~~~ Bluelight Device ~~~~~~~~ -->
     <param key="has.bluelight.device" value="true" />
 

@@ -1,11 +1,3 @@
-output/screenshots/*
-output/graphs/*
-output/data/*
-
 *.pyc
 **/__pycache__/
-
-# case_studies/**/output/data/*
-# case_studies/**/output/graphs/*
-
 **/logs.txt

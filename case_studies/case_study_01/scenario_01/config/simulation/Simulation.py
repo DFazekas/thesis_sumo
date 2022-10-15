@@ -1,7 +1,9 @@
 import os
 import traci
+import subprocess
 from .Vehicle import Vehicle, EmergencyVehicle
 from .Detour import Detour
+import randomTrips
 
 
 class Simulation:
@@ -46,8 +48,12 @@ class Simulation:
             runs (_type_): _description_
         """
 
-        for run in list(range(runs)):
-            self.start(sumoBinary, run)
+        for runNum in list(range(runs)):
+            # Generate random trips. The output file should be placed in the /data folder.
+            subprocess.run(["python", randomTrips.__file__,
+                           "-c", "config/generators/trips.cfgtrips.xml"])
+
+            self.start(sumoBinary, runNum)
             while self.shouldContinue():
                 # Refresh the list of vehicles currently on the network.
                 # FIXME: code smell - multiple subscriptions to the EV.

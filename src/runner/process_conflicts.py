@@ -1,6 +1,6 @@
 from termcolor import colored
 from .utils import runPythonFile
-from utils import xml_to_df
+from ..utilities import xml_to_csv
 
 
 def main(inputFilePath, outputFilePath):
@@ -10,7 +10,7 @@ def main(inputFilePath, outputFilePath):
 
     runPythonFile(
         [
-            "python", xml_to_df.__file__,
+            "python", xml_to_csv.__file__,
             '--xml', inputFilePath,
             '--cols', 'begin,end,foe,ego,time,type,value',
                       '-o', outputFilePath,

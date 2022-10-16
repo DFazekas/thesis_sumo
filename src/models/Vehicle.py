@@ -117,15 +117,19 @@ class EmergencyVehicle(Vehicle):
 
     def findNearbyVehicles(self) -> set[Vehicle]:
         """Returns a list of vehicles within range of the EV.
+        Due to a bug, the EV will identify itself as a nearby vehicle. 
+        Therefore, extra steps are taken to remove self inclusion in the output.
 
         Returns:
             set[Vehicle]: Nearby vehicles.
         """
         subResults = traci.vehicle.getContextSubscriptionResults(
             self.id)
+        ids = set(subResults.keys())
+        ids.discard('EV')
 
         nearbyVehicles = [Vehicle(id)
-                          for id in list(subResults.keys())]
+                          for id in list(ids)]
         return nearbyVehicles
 
     def getVehiclesToResume(self, haltedVehicles: set[Vehicle]) -> set[Vehicle]:

@@ -1,16 +1,19 @@
-import os
-import traci
 import subprocess
+import random
+import traci
+import randomTrips
 from .Vehicle import Vehicle, EmergencyVehicle
 from .Detour import Detour
-import randomTrips
 
 
 class Simulation:
 
-    def __init__(self, cvID) -> None:
+    def __init__(self, evTrip) -> None:
+        # The origin and dest edges for the EV.
+        print(f'init: evTrip: {evTrip}')
+        self.evTrip = evTrip
         # The vehicle type ID for CVs.
-        self.cvId = cvID
+        self.cvId = "Connected"
         # List of vehicles currently on the network.
         self.allVehicles: set[Vehicle] = set()
         # List of CVs.
@@ -20,27 +23,31 @@ class Simulation:
         # List of halting vehicles.
         self.haltingVehicles: set[Vehicle] = set()
 
-    def start(self, sumoBinary, suffix) -> None:
+    def start(self, sumoBinary, networkFilePath: str, vTypeFilePath: str, tripFilePath: str, outputDir: str, runNum: int) -> None:
         """Starts the simulation."""
-        dir = os.path.dirname(__file__)
         traci.start(
             [
                 sumoBinary,
-                '--net-file', f'{dir}/../data/grid.net.xml',
-                '--route-files', f'{dir}/../data/trips.trips.xml',
-                '--additional-files', f'{dir}/../data/vehicleTypes.add.xml',
-                '--gui-settings-file', f'{dir}/../data/viewSettings.xml',
-                '--device.ssm.file', f'{dir}/../../output/data/ssm_{suffix}.xml',
+                '--net-file', networkFilePath,
+                '--route-files', tripFilePath,
+                '--additional-files', vTypeFilePath,
+                '--gui-settings-file', 'src/config/viewSettings.xml',
+                '--device.ssm.file', f'{outputDir}/ssm/ssm_{runNum}.xml',
+                # '--fcd-output', f'{outputDir}/fcd/fcd_{runNum}.xml',
+                # '--statistic-output', f'{outputDir}/stats/stats_{runNum}.xml',
+                # '--netstate-dump', f'{outputDir}/dump/netstate_{runNum}.xml',
                 '--start',
                 '--quit-on-end',
-                '--verbose',
+                # '--verbose',
                 '--lateral-resolution', '0.1',
                 '--human-readable-time', 'true',
                 '--delay', '100',
-                # '--step-method.ballistic', 'true'
+                '--random',
+                '--no-warnings', 'true',
+                '--duration-log.disable', 'true'
             ])
 
-    def run(self, sumoBinary, runs) -> None:
+    def run(self, sumoBinary, networkFilePath: str, vTypeFilePath: str, tripFilePath, outputDir: str, demand: float, runNum: int) -> None:
         """Manages the starting, running, and stopping of the simulation.
 
         Args:
@@ -48,29 +55,40 @@ class Simulation:
             runs (_type_): _description_
         """
 
-        for runNum in list(range(runs)):
-            # Generate random trips. The output file should be placed in the /data folder.
-            subprocess.run(["python", randomTrips.__file__,
-                           "-c", "config/generators/trips.cfgtrips.xml"])
+        # The insertion time for EV is random.
+        # FIXME: Let the network fill before insertion the EV.
+        evInsertionTime = random.randint(12, 20)
 
-            self.start(sumoBinary, runNum)
-            while self.shouldContinue():
-                # Refresh the list of vehicles currently on the network.
-                # FIXME: code smell - multiple subscriptions to the EV.
-                self.updateVehicleList()
+        # Generate random trips. The output file should be placed in the /data folder.
+        subprocess.run(["python", randomTrips.__file__,
+                        "-c", "src/config/trips.cfgtrips.xml",
+                        "--net-file", networkFilePath,
+                        "--insertion-rate", f"{demand}",
+                        '--output-trip-file', tripFilePath])
 
-                # Rerouting is only necessary while EVs are actively on the network.
-                if self.emergencyVehicle != None:
-                    # Find all vehicles with common edges in their route. Detour them all.
-                    evFutureRoute = self.emergencyVehicle.getFutureRoute()
-                    Detour.detourVehicles(
-                        self.connectedVehicles, evFutureRoute)
+        self.start(sumoBinary, networkFilePath,
+                   vTypeFilePath, tripFilePath, outputDir, runNum)
+        while self.shouldContinue():
+            # Refresh the list of vehicles currently on the network.
+            # FIXME: code smell - multiple subscriptions to the EV.
+            self.updateVehicleList()
 
-                # TODO: Revert detours once EV leaves network.
-                self.updateHaltedVehicleList()
-                self.stepForward()
+            # Insert the EV into the network.
+            if self.getTime() == evInsertionTime:
+                self.insertEv(self.evTrip["origin"], self.evTrip["dest"])
 
-            self.stop()
+            # Rerouting is only necessary while EVs are actively on the network.
+            if self.emergencyVehicle != None:
+                # Find all vehicles with common edges in their route. Detour them all.
+                evFutureRoute = self.emergencyVehicle.getFutureRoute()
+                Detour.detourVehicles(
+                    self.connectedVehicles, evFutureRoute)
+
+            # TODO: Revert detours once EV leaves network.
+            self.updateHaltedVehicleList()
+            self.stepForward()
+
+        self.stop()
 
     def shouldContinue(self) -> bool:
         """Checks that the simulation should continue running.
@@ -88,6 +106,14 @@ class Simulation:
     def stop(self) -> None:
         """Stops the simulation."""
         traci.close()
+
+    def getTime(self) -> int:
+        """Returns the current simulation time, in seconds.
+
+        Returns:
+            int: Current simulation time.
+        """
+        return traci.simulation.getTime()
 
     def updateVehicleList(self) -> None:
         """Updates the list of vehicles on the network."""
@@ -158,3 +184,16 @@ class Simulation:
                 veh.setSpeed(newSpeed)
                 # FIXME: smell - is removing objs from list that easy?
             self.haltingVehicles.remove(veh)
+
+    def insertEv(self, origin: str, dest: str, vehId: str = 'EV', typeId: str = 'EV') -> None:
+        """Inserts the EV vehicle into the network with a route between the `origin` and `dest` edges.
+
+        Args:
+            origin (str): ID of the origin edge.
+            dest (str): ID of the destination edge.
+            vehId (str, optional): ID of the vehicle. Defaults to 'EV'.
+            typeId (str, optional): ID of the vehicle type. Defaults to 'EV'.
+        """
+        routeId = 'evRoute'
+        traci.route.add(routeId, [origin, dest])
+        traci.vehicle.add(vehID=vehId, routeID=routeId, typeID=typeId)

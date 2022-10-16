@@ -1,4 +1,4 @@
-from . import case_studies
+from . import src
 from . import graphs
 from . import runner
 from . import utils

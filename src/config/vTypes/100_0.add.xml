@@ -2,7 +2,7 @@
 
   <vTypeDistribution id="civilianVehicles">
     <!-- Ordinary Civilian vehicle -->
-    <vType id="Regular" accel="3.0" decel="6.0" length="5.0" minGap="2.5" maxSpeed="50.0" sigma="0.95" actionStepLength="1.0" color="white" probability="0.5">
+    <vType id="Regular" accel="3.0" decel="6.0" length="5.0" minGap="2.5" maxSpeed="50.0" sigma="0.95" actionStepLength="1.0" color="white" probability="0">
       <!-- ~~~~~~~~ SSM Device ~~~~~~~~ -->
       <param key="has.ssm.device" value="true" />
       <param key="device.ssm.measures" value="TTC" />
@@ -16,7 +16,7 @@
     </vType>
 
     <!-- Connected Civilian vehicle -->
-    <vType id="Connected" accel="3.0" decel="6.0" length="5.0" minGap="2.5" maxSpeed="50.0" sigma="0.95" color="blue" probability="0.5">
+    <vType id="Connected" accel="3.0" decel="6.0" length="5.0" minGap="2.5" maxSpeed="50.0" sigma="0.95" color="blue" probability="1">
       <!-- ~~~~~~~~ SSM Device ~~~~~~~~ -->
       <param key="has.ssm.device" value="true" />
       <param key="device.ssm.measures" value="TTC" />

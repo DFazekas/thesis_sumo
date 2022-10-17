@@ -37,7 +37,6 @@ def main(inputFilePath, outputFilePath):
 
 
 def averageConflicts(files, outputFile):
-    print(f"SSM file count: {len(files)}")
     cols = ['type']
     # Flatten. Average. Export as CSV.
     runData = []
@@ -47,10 +46,7 @@ def averageConflicts(files, outputFile):
         data = data.groupby(['type'], as_index=False).size()
         runData.append(data)
 
-    print(runData)
     df = pd.concat(runData).replace(
         0, np.nan).groupby("type", as_index=False).mean()
-
-    print(f'df: {df}')
 
     df.to_csv(outputFile, sep=',', index=False)

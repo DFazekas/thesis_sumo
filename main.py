@@ -28,6 +28,10 @@ demands = [1000]  # vehicles per hour. [1000, 1500, 2000]
 reruns = 2  # The number of times to rerun the same simulation
 
 
+def filter(string, substr):
+    return [str for str in string if any(sub in str for sub in substr)]
+
+
 def main(sumoBinary):
     """Generates all prerequisite files to run the simulation, export data, and process the data."""
 
@@ -44,17 +48,23 @@ def main(sumoBinary):
         for vIndex, vTypeFile in enumerate(vTypeFiles):
             for runNum in list(range(reruns)):
                 prefix = f"d{demand}_p{vIndex}_r{runNum}"
-                # run_simulation.runGrid(sumoBinary, vTypeFile, demand, prefix)
+                runStats = {"current": runNum, "total": reruns}
+                run_simulation.runGrid(
+                    sumoBinary, vTypeFile, demand, prefix, runNum, runStats)
 
             # Get all SSM files
-            print(colored(">> Processing conflict files...", "yellow"))
             ssmPath = "src/case_study_grid/output/ssm"
-            ssmFiles = [
-                f"{ssmPath}/{ssmFile}" for ssmFile in os.listdir(ssmPath)]
-
+            ssmFiles = filter(os.listdir(ssmPath), [f"d{demand}_p{vIndex}"])
+            ssmAbsFiles = [
+                f"{ssmPath}/{ssmFile}" for ssmFile in ssmFiles]
+            print(
+                colored(f">> Processing ({len(ssmAbsFiles)}) (d{demand}_p{vIndex}) conflict files...", "yellow"))
             process_conflicts.averageConflicts(
-                ssmFiles,
+                ssmAbsFiles,
                 f"src/case_study_grid/output/stats/ssm_d{demand}_p{vIndex}.csv")
+
+            print(
+                colored(f"SSM (d{demand}_p{vIndex}) processing complete.", "yellow"))
 
     # Run real-world network x100 at 1000 veh/hr, average the outputs, aggregrate the SSM data. Repeat for 1500 veh/hr and 2000 veh/hr.
     # TODO: Add real-world case study.

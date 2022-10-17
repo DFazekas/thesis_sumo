@@ -10,7 +10,6 @@ class Simulation:
 
     def __init__(self, evTrip) -> None:
         # The origin and dest edges for the EV.
-        print(f'init: evTrip: {evTrip}')
         self.evTrip = evTrip
         # The vehicle type ID for CVs.
         self.cvId = "Connected"
@@ -23,7 +22,7 @@ class Simulation:
         # List of halting vehicles.
         self.haltingVehicles: set[Vehicle] = set()
 
-    def start(self, sumoBinary, networkFilePath: str, vTypeFilePath: str, tripFilePath: str, outputDir: str, runNum: int) -> None:
+    def start(self, sumoBinary, networkFilePath: str, vTypeFilePath: str, tripFilePath: str, outputDir: str, runNum: int, prefix: str) -> None:
         """Starts the simulation."""
         traci.start(
             [
@@ -32,7 +31,7 @@ class Simulation:
                 '--route-files', tripFilePath,
                 '--additional-files', vTypeFilePath,
                 '--gui-settings-file', 'src/config/viewSettings.xml',
-                '--device.ssm.file', f'{outputDir}/ssm/ssm_{runNum}.xml',
+                '--device.ssm.file', f'{outputDir}/ssm/ssm_{prefix}.xml',
                 # '--fcd-output', f'{outputDir}/fcd/fcd_{runNum}.xml',
                 # '--statistic-output', f'{outputDir}/stats/stats_{runNum}.xml',
                 # '--netstate-dump', f'{outputDir}/dump/netstate_{runNum}.xml',
@@ -47,7 +46,7 @@ class Simulation:
                 '--duration-log.disable', 'true'
             ])
 
-    def run(self, sumoBinary, networkFilePath: str, vTypeFilePath: str, tripFilePath, outputDir: str, demand: float, runNum: int) -> None:
+    def run(self, sumoBinary, networkFilePath: str, vTypeFilePath: str, tripFilePath, outputDir: str, demand: float, runNum: int, prefix: str) -> None:
         """Manages the starting, running, and stopping of the simulation.
 
         Args:
@@ -67,7 +66,7 @@ class Simulation:
                         '--output-trip-file', tripFilePath])
 
         self.start(sumoBinary, networkFilePath,
-                   vTypeFilePath, tripFilePath, outputDir, runNum)
+                   vTypeFilePath, tripFilePath, outputDir, runNum, prefix=prefix)
         while self.shouldContinue():
             # Refresh the list of vehicles currently on the network.
             # FIXME: code smell - multiple subscriptions to the EV.

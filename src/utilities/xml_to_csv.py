@@ -74,7 +74,6 @@ def parse(row, node, cols):
 
 
 def parse_XML(xmlFilePath, colNames):
-    print(f"colNames: {colNames}")
     xtree = et.parse(xmlFilePath)
     xroot = xtree.getroot()
     allRows = []

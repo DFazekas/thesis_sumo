@@ -28,7 +28,7 @@ def get_options(args=None):
                            default="output/data/df.csv", help="Define the output filepath.")
     optParser.add_argument("--verbose", dest="verbose",
                            type=bool, default=False, help="Verbose logging.")
-    optParser.add_argument("--timestamp", dest="timestamp", type=bool, default=True,
+    optParser.add_argument("--timestamp", dest="timestamp", type=bool, default=False,
                            help="Appends the current time to the end of the output file name.")
     options = optParser.parse_args(args=args)
 
@@ -74,6 +74,7 @@ def parse(row, node, cols):
 
 
 def parse_XML(xmlFilePath, colNames):
+    print(f"colNames: {colNames}")
     xtree = et.parse(xmlFilePath)
     xroot = xtree.getroot()
     allRows = []
@@ -86,13 +87,16 @@ def parse_XML(xmlFilePath, colNames):
         allRows.append(result)
 
     out_df = pd.DataFrame(allRows, columns=colNames)
-
     return out_df
 
 
 def log(msg):
     if verbose == True:
         print(msg)
+
+
+def returnCSV(data: pd.DataFrame) -> str:
+    return data.to_csv(sep=',', index=False)
 
 
 def exportToFile(filepath, data):
@@ -102,8 +106,13 @@ def exportToFile(filepath, data):
         timestamp = datetime.now().strftime('%Y_%m_%d-%H_%M_%S')
 
     path = Path(filepath)
-    newFilePath = "{0}{1}{2}".format(Path.joinpath(
-        path.parent, path.stem), ("_" + timestamp), path.suffix)
+    newFilePath = "{0}{1}{2}".format(
+        Path.joinpath(
+            path.parent, path.stem
+        ),
+        ("_" + timestamp if timestamp != "" else ""),
+        path.suffix
+    )
 
     data.to_csv(newFilePath, sep=",", index=False)
 

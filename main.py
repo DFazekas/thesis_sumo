@@ -9,7 +9,7 @@ from termcolor import colored
 import os
 import sys
 from sumolib import checkBinary  # noqa
-from src.runner import run_simulation as rn
+from src.runner import run_simulation, process_conflicts
 
 # Enables the Windows OS to apply color in their terminal.
 os.system('color')
@@ -25,7 +25,7 @@ except ImportError:
 
 
 demands = [1000]  # vehicles per hour. [1000, 1500, 2000]
-reruns = 1  # The number of times to rerun the same simulation
+reruns = 2  # The number of times to rerun the same simulation
 
 
 def main(sumoBinary):
@@ -44,7 +44,17 @@ def main(sumoBinary):
         for vIndex, vTypeFile in enumerate(vTypeFiles):
             for runNum in list(range(reruns)):
                 prefix = f"d{demand}_p{vIndex}_r{runNum}"
-                rn.runGrid(sumoBinary, vTypeFile, demand, prefix)
+                # run_simulation.runGrid(sumoBinary, vTypeFile, demand, prefix)
+
+            # Get all SSM files
+            print(colored(">> Processing conflict files...", "yellow"))
+            ssmPath = "src/case_study_grid/output/ssm"
+            ssmFiles = [
+                f"{ssmPath}/{ssmFile}" for ssmFile in os.listdir(ssmPath)]
+
+            process_conflicts.averageConflicts(
+                ssmFiles,
+                f"src/case_study_grid/output/stats/ssm_d{demand}_p{vIndex}.csv")
 
     # Run real-world network x100 at 1000 veh/hr, average the outputs, aggregrate the SSM data. Repeat for 1500 veh/hr and 2000 veh/hr.
     # TODO: Add real-world case study.

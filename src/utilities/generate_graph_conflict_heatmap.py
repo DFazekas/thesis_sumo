@@ -39,12 +39,13 @@ def get_data(file, label):
     return result
 
 
-def generate_heatmap(data, options):
+def generate_heatmap(data: pd.DataFrame, outputFile: str, labels):
+    plt.clf()
     graph = sns.heatmap(data, cmap="flare")
-    graph.set_title('Frequency of Conflict Types')
-    graph.set_xlabel('PR (%)')
-    graph.set_ylabel('Type')
-    plt.savefig(options.output)
+    graph.set_title(labels["title"])
+    graph.set_xlabel(labels["xLabel"])
+    graph.set_ylabel(labels["yLabel"])
+    plt.savefig(outputFile)
 
 
 def get_options(args=None):
@@ -65,6 +66,33 @@ def get_options(args=None):
         options.files = options.files.split(',')
 
     return options
+
+
+def process_file(filePath: str, outputDir: str) -> None:
+    df = pd.read_csv(filePath, sep=",", index_col=None)
+
+    xLabel = "Demand (veh/hr)"
+    yLabel = "CV Penetration (%)"
+
+    matrix_following = df.pivot(
+        "Penetration (%)", "Demand (veh/hr)", "FOLLOWING")
+    generate_heatmap(
+        matrix_following,
+        f"{outputDir}/heatmap_following.png",
+        {"title": "Frequency of Following Conflicts", "xLabel": xLabel, "yLabel": yLabel})
+
+    matrix_merging = df.pivot("Penetration (%)", "Demand (veh/hr)", "MERGING")
+    generate_heatmap(
+        matrix_merging,
+        f"{outputDir}/heatmap_merging.png",
+        {"title": "Frequency of Merging Conflicts", "xLabel": xLabel, "yLabel": yLabel})
+
+    matrix_crossing = df.pivot(
+        "Penetration (%)", "Demand (veh/hr)", "CROSSING")
+    generate_heatmap(
+        matrix_crossing,
+        f"{outputDir}/heatmap_crossing.png",
+        {"title": "Frequency of Crossing Conflicts", "xLabel": xLabel, "yLabel": yLabel})
 
 
 def main(options):

@@ -8,6 +8,7 @@ import optparse
 from termcolor import colored
 import os
 import sys
+from src.utilities import generate_graph_conflict_heatmap as heatmap
 from sumolib import checkBinary  # noqa
 from src.runner import run_simulation, process_conflicts
 from pathlib import Path
@@ -25,8 +26,8 @@ except ImportError:
     sys.exit(colored("please declare environment variable 'SUMO_HOME'", "red"))
 
 
-demands = [1000]  # vehicles per hour. [1000, 1500, 2000]
-reruns = 2  # The number of times to rerun the same simulation
+demands = [1000, 1500]  # vehicles per hour. [1000, 1500, 2000]
+reruns = 1  # The number of times to rerun the same simulation
 
 
 def filter(string, substr):
@@ -87,7 +88,14 @@ def main(sumoBinary):
     print(
         f"""\t{colored('[✓]', 'green')} SSM report generation complete.""")
 
-    
+    # Generate SSM heatmap chart.
+    print("""\n> Generating SSM heatmap chart...""")
+
+    heatmap.process_file("src/case_study_grid/output/report.csv",
+                         "src/case_study_grid/output/graphs")
+    print(
+        f"""\t{colored('[✓]', 'green')} SSM heatmap generation complete.""")
+
     # Run real-world network x100 at 1000 veh/hr, average the outputs, aggregrate the SSM data. Repeat for 1500 veh/hr and 2000 veh/hr.
     # TODO: Add real-world case study.
 

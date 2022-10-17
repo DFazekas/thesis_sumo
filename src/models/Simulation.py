@@ -43,7 +43,8 @@ class Simulation:
                 '--delay', '100',
                 '--random',
                 '--no-warnings', 'true',
-                '--duration-log.disable', 'true'
+                '--duration-log.disable', 'true',
+                '--no-step-log', 'true'
             ])
 
     def run(self, sumoBinary, networkFilePath: str, vTypeFilePath: str, tripFilePath, outputDir: str, demand: float, runNum: int, prefix: str) -> None:

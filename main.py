@@ -26,7 +26,7 @@ except ImportError:
 
 
 demands = [1000]  # vehicles per hour. [1000, 1500, 2000]
-reruns = 1  # The number of times to rerun the same simulation
+reruns = 2  # The number of times to rerun the same simulation
 
 
 def filter(string, substr):
@@ -72,7 +72,7 @@ def main(sumoBinary):
             ssmAbsFiles = [
                 f"{ssmPath}/{ssmFile}" for ssmFile in ssmFiles]
             print(
-                f">>> Processing ({colored(len(ssmAbsFiles), 'yellow')}) ({colored(f'd{demand}','magenta')}_{colored(f'p{penetrationRatio}', 'cyan')}) conflict files...")
+                f"\t>>> Processing ({colored(len(ssmAbsFiles), 'yellow')}) ({colored(f'd{demand}','magenta')}_{colored(f'p{penetrationRatio}', 'cyan')}) conflict files...")
             process_conflicts.averageConflicts(
                 ssmAbsFiles,
                 f"src/case_study_grid/output/stats/ssm_d{demand}_p{penetrationRatio}.csv")
@@ -80,6 +80,14 @@ def main(sumoBinary):
             print(
                 f"\t{colored('[✓]', 'green')} SSM ({colored(f'd{demand}','magenta')}_{colored(f'p{penetrationRatio}', 'cyan')}) processing complete.")
 
+    print("""\n> Generating SSM report file...""")
+    ssmStatPath = "src/case_study_grid/output/stats"
+    ssmReportFile = "src/case_study_grid/output/report.csv"
+    process_conflicts.generateReport(ssmStatPath, ssmReportFile)
+    print(
+        f"""\t{colored('[✓]', 'green')} SSM report generation complete.""")
+
+    
     # Run real-world network x100 at 1000 veh/hr, average the outputs, aggregrate the SSM data. Repeat for 1500 veh/hr and 2000 veh/hr.
     # TODO: Add real-world case study.
 

@@ -25,8 +25,8 @@ def runGrid(sumoBinary, vTypeFile: str, demand: float, prefix: str, runNum: int,
     gridOutput = "src/case_study_grid/output"
     evTrip = {"origin": "top1B3", "dest": "D0bottom3"}
 
-    print(colored(
-        f">> Running ({runStats['current']+1} / {runStats['total']}) simulation...", "yellow"))
+    print(
+        f""">>> Running ({colored(f'{runStats["current"]+1}', 'yellow')} / {colored(f'{runStats["total"]}', 'yellow')}) simulation...""")
 
     main(sumoBinary=sumoBinary,
          networkFilePath=gridNetwork,
@@ -38,8 +38,8 @@ def runGrid(sumoBinary, vTypeFile: str, demand: float, prefix: str, runNum: int,
          evTrip=evTrip,
          runNum=runNum)
 
-    print(colored(
-        f"Simulation ({runStats['current']+1} / {runStats['total']}) complete.", "yellow"))
+    print(
+        f"""\t{colored('[✓]', 'green')} Simulation ({colored(runStats['current']+1, 'yellow')} / {colored(runStats['total'],'yellow')}) complete.""")
 
 
 def runRealWorld(sumoBinary, vTypeFile, demand, runNum):

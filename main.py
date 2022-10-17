@@ -39,13 +39,19 @@ def main(sumoBinary):
     path = "src/config/vTypes"
     fileNames = os.listdir(path)
     vTypeFile = [f'{path}/{name}' for name in fileNames]
-    vTypeFiles = [vTypeFile[0]]
+    vTypeFiles = [vTypeFile[0], vTypeFile[1]]
 
     # Run grid network x100 at 1000 veh/hr and 0% CVs, average the outputs, aggregrate the SSM data. Repeat for 25%, 50%, 75%, and 100% CVs. Repeat for 1500 veh/hr and 2000 veh/hr.
     # Expecting: 15 data files.
 
-    for demand in demands:
+    for dIndex, demand in enumerate(demands):
+        print(
+            f"""> Applying traffic demand ({colored(f'{dIndex+1}', 'magenta')} / {colored(f'{len(demands)}', 'magenta')})...""")
+
         for vIndex, vTypeFile in enumerate(vTypeFiles):
+            print(
+                f""">> Applying CV penetration rate ({colored(f'{vIndex+1}', 'cyan')} / {colored(f'{len(vTypeFiles)}', 'cyan')})...""")
+
             for runNum in list(range(reruns)):
                 prefix = f"d{demand}_p{vIndex}_r{runNum}"
                 runStats = {"current": runNum, "total": reruns}
@@ -58,13 +64,13 @@ def main(sumoBinary):
             ssmAbsFiles = [
                 f"{ssmPath}/{ssmFile}" for ssmFile in ssmFiles]
             print(
-                colored(f">> Processing ({len(ssmAbsFiles)}) (d{demand}_p{vIndex}) conflict files...", "yellow"))
+                f">>> Processing ({colored(len(ssmAbsFiles), 'yellow')}) ({colored(f'd{demand}','magenta')}_{colored(f'p{vIndex}', 'cyan')}) conflict files...")
             process_conflicts.averageConflicts(
                 ssmAbsFiles,
                 f"src/case_study_grid/output/stats/ssm_d{demand}_p{vIndex}.csv")
 
             print(
-                colored(f"SSM (d{demand}_p{vIndex}) processing complete.", "yellow"))
+                f"\t{colored('[✓]', 'green')} SSM ({colored(f'd{demand}','magenta')}_{colored(f'p{vIndex}', 'cyan')}) processing complete.")
 
     # Run real-world network x100 at 1000 veh/hr, average the outputs, aggregrate the SSM data. Repeat for 1500 veh/hr and 2000 veh/hr.
     # TODO: Add real-world case study.

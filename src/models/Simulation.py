@@ -4,6 +4,7 @@ import traci
 import randomTrips
 from .Vehicle import Vehicle, EmergencyVehicle
 from .Detour import Detour
+from termcolor import colored
 
 
 class Simulation:
@@ -32,19 +33,24 @@ class Simulation:
                 '--additional-files', vTypeFilePath,
                 '--gui-settings-file', 'src/config/viewSettings.xml',
                 '--device.ssm.file', f'{outputDir}/ssm/ssm_{prefix}.xml',
-                # '--fcd-output', f'{outputDir}/fcd/fcd_{runNum}.xml',
-                # '--statistic-output', f'{outputDir}/stats/stats_{runNum}.xml',
-                # '--netstate-dump', f'{outputDir}/dump/netstate_{runNum}.xml',
+                '--device.ssm.thresholds', '1.5',
+                # '--fcd-output', f'{outputDir}/dump/fcd_{prefix}.xml',
+                # '--statistic-output', f'{outputDir}/dump/stats_{prefix}.xml',
+                # '--netstate-dump', f'{outputDir}/dump/netstate_{prefix}.xml',
+                # '--tripinfo-output', f'{outputDir}/dump/info_{prefix}.xml',
                 '--start',
+                '--end', '3600',
                 '--quit-on-end',
                 # '--verbose',
-                '--lateral-resolution', '0.1',
+                # '--lateral-resolution', '0.01',
                 '--human-readable-time', 'true',
-                '--delay', '100',
-                '--random',
+                # '--delay', '100',
+                '--device.rerouting.threads', '8',
+                # '--random',
                 '--no-warnings', 'true',
                 '--duration-log.disable', 'true',
-                '--no-step-log', 'true'
+                '--no-step-log', 'true',
+                '--log', 'log.txt'
             ])
 
     def run(self, sumoBinary, networkFilePath: str, vTypeFilePath: str, tripFilePath, outputDir: str, demand: float, runNum: int, prefix: str) -> None:
@@ -57,13 +63,14 @@ class Simulation:
 
         # The insertion time for EV is random.
         # FIXME: Let the network fill before insertion the EV.
-        evInsertionTime = random.randint(12, 20)
-
+        evInsertionTime = random.randint(60 * 10, 60 * 15)
+        print(f"""\tEV inserts @ ({colored(evInsertionTime ,"red")})""")
         # Generate random trips. The output file should be placed in the /data folder.
         subprocess.run(["python", randomTrips.__file__,
                         "-c", "src/config/trips.cfgtrips.xml",
                         "--net-file", networkFilePath,
                         "--insertion-rate", f"{demand}",
+                        "--validate",
                         '--output-trip-file', tripFilePath])
 
         self.start(sumoBinary, networkFilePath,
@@ -85,7 +92,7 @@ class Simulation:
                     self.connectedVehicles, evFutureRoute)
 
             # TODO: Revert detours once EV leaves network.
-            self.updateHaltedVehicleList()
+            # self.updateHaltedVehicleList()
             self.stepForward()
 
         self.stop()

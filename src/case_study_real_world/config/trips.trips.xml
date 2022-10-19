@@ -1,0 +1,246 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!-- generated on 2022-10-19 10:38:05.945172 by randomTrips.py v1_14_1+1008-de138fee043
+<configuration>
+    <allow-fringe value="True"/>
+    <fringe-factor value="10000.0"/>
+    <insertion-rate value="200.0"/>
+    <min-distance value="1500.0"/>
+    <net-file value="src/case_study_real_world/config/realworld.net.xml"/>
+    <random value="True"/>
+    <trip-attributes value="departPos=&quot;random&quot; departSpeed=&quot;max&quot; type=&quot;civilianVehicles&quot; departLane=&quot;best&quot;"/>
+    <output-trip-file value="src/case_study_real_world/config/trips.trips.xml"/>
+    <validate value="True"/>
+</configuration>
+-->
+
+<!-- generated on 2022-10-19 10:38:05 by Eclipse SUMO duarouter Version v1_14_1+1008-de138fee043
+<configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/duarouterConfiguration.xsd">
+
+    <input>
+        <net-file value="src/case_study_real_world/config/realworld.net.xml"/>
+        <route-files value="src/case_study_real_world/config/trips.trips.xml"/>
+    </input>
+
+    <output>
+        <output-file value="src/case_study_real_world/config/trips.trips.xml.tmp"/>
+        <alternatives-output value="NUL"/>
+        <write-trips value="true"/>
+    </output>
+
+    <time>
+        <begin value="0"/>
+        <end value="3600"/>
+    </time>
+
+    <report>
+        <no-warnings value="true"/>
+        <ignore-errors value="true"/>
+        <no-step-log value="true"/>
+    </report>
+
+</configuration>
+-->
+
+<routes xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/routes_file.xsd">
+    <trip id="0" type="civilianVehicles" depart="0.00" departLane="best" departPos="random" departSpeed="max" from="3996363" to="24039249"/>
+    <trip id="1" type="civilianVehicles" depart="18.00" departLane="best" departPos="random" departSpeed="max" from="-24039249" to="118631868"/>
+    <trip id="2" type="civilianVehicles" depart="36.00" departLane="best" departPos="random" departSpeed="max" from="-42137042" to="-4663040#0"/>
+    <trip id="3" type="civilianVehicles" depart="54.00" departLane="best" departPos="random" departSpeed="max" from="3996378" to="143328191"/>
+    <trip id="4" type="civilianVehicles" depart="72.00" departLane="best" departPos="random" departSpeed="max" from="-4663165#3" to="22780761"/>
+    <trip id="5" type="civilianVehicles" depart="90.00" departLane="best" departPos="random" departSpeed="max" from="-35566055#1" to="-43246686"/>
+    <trip id="6" type="civilianVehicles" depart="108.00" departLane="best" departPos="random" departSpeed="max" from="446073999#0" to="-18551387"/>
+    <trip id="7" type="civilianVehicles" depart="126.00" departLane="best" departPos="random" departSpeed="max" from="18551407" to="28596294"/>
+    <trip id="8" type="civilianVehicles" depart="144.00" departLane="best" departPos="random" departSpeed="max" from="3996367" to="37407325"/>
+    <trip id="9" type="civilianVehicles" depart="162.00" departLane="best" departPos="random" departSpeed="max" from="42986506#0" to="10252688#2"/>
+    <trip id="10" type="civilianVehicles" depart="180.00" departLane="best" departPos="random" departSpeed="max" from="-18551608" to="-13807816#1"/>
+    <trip id="11" type="civilianVehicles" depart="198.00" departLane="best" departPos="random" departSpeed="max" from="15095786" to="5090431"/>
+    <trip id="12" type="civilianVehicles" depart="216.00" departLane="best" departPos="random" departSpeed="max" from="-10252554" to="3996372"/>
+    <trip id="13" type="civilianVehicles" depart="234.00" departLane="best" departPos="random" departSpeed="max" from="42965138" to="118631868"/>
+    <trip id="14" type="civilianVehicles" depart="252.00" departLane="best" departPos="random" departSpeed="max" from="-435065524" to="296783455#4"/>
+    <trip id="15" type="civilianVehicles" depart="270.00" departLane="best" departPos="random" departSpeed="max" from="4663063" to="42965189"/>
+    <trip id="16" type="civilianVehicles" depart="288.00" departLane="best" departPos="random" departSpeed="max" from="22780752" to="-3996362"/>
+    <trip id="17" type="civilianVehicles" depart="306.00" departLane="best" departPos="random" departSpeed="max" from="22694251" to="-3996390#0"/>
+    <trip id="18" type="civilianVehicles" depart="324.00" departLane="best" departPos="random" departSpeed="max" from="-285740195#1" to="-25649811#2"/>
+    <trip id="19" type="civilianVehicles" depart="342.00" departLane="best" departPos="random" departSpeed="max" from="-22781232" to="12896963"/>
+    <trip id="20" type="civilianVehicles" depart="360.00" departLane="best" departPos="random" departSpeed="max" from="43246686" to="42965240"/>
+    <trip id="21" type="civilianVehicles" depart="378.00" departLane="best" departPos="random" departSpeed="max" from="143328091" to="-35488968"/>
+    <trip id="22" type="civilianVehicles" depart="396.00" departLane="best" departPos="random" departSpeed="max" from="-187850237#1" to="10153774#3"/>
+    <trip id="23" type="civilianVehicles" depart="414.00" departLane="best" departPos="random" departSpeed="max" from="143328091" to="3996360"/>
+    <trip id="24" type="civilianVehicles" depart="432.00" departLane="best" departPos="random" departSpeed="max" from="-5090431" to="-113539220"/>
+    <trip id="25" type="civilianVehicles" depart="450.00" departLane="best" departPos="random" departSpeed="max" from="-47515681" to="15032810#3"/>
+    <trip id="26" type="civilianVehicles" depart="468.00" departLane="best" departPos="random" departSpeed="max" from="-256520229#9" to="28596259"/>
+    <trip id="27" type="civilianVehicles" depart="486.00" departLane="best" departPos="random" departSpeed="max" from="22780752" to="-462485798#1"/>
+    <trip id="28" type="civilianVehicles" depart="504.00" departLane="best" departPos="random" departSpeed="max" from="-43331060#2" to="-4663063"/>
+    <trip id="29" type="civilianVehicles" depart="522.00" departLane="best" departPos="random" departSpeed="max" from="-35487619" to="3996371"/>
+    <trip id="30" type="civilianVehicles" depart="540.00" departLane="best" departPos="random" departSpeed="max" from="-35599327" to="-142643513"/>
+    <trip id="31" type="civilianVehicles" depart="558.00" departLane="best" departPos="random" departSpeed="max" from="-142571177" to="5995705#4"/>
+    <trip id="32" type="civilianVehicles" depart="576.00" departLane="best" departPos="random" departSpeed="max" from="10153813" to="-15032842"/>
+    <trip id="33" type="civilianVehicles" depart="594.00" departLane="best" departPos="random" departSpeed="max" from="113539220" to="3996372"/>
+    <trip id="34" type="civilianVehicles" depart="612.00" departLane="best" departPos="random" departSpeed="max" from="4663040#0" to="-24039240"/>
+    <trip id="35" type="civilianVehicles" depart="630.00" departLane="best" departPos="random" departSpeed="max" from="-10252554" to="-18551407"/>
+    <trip id="36" type="civilianVehicles" depart="648.00" departLane="best" departPos="random" departSpeed="max" from="-22780718" to="448801940#1"/>
+    <trip id="37" type="civilianVehicles" depart="666.00" departLane="best" departPos="random" departSpeed="max" from="-456585720" to="42137222"/>
+    <trip id="38" type="civilianVehicles" depart="684.00" departLane="best" departPos="random" departSpeed="max" from="23224468" to="11043980"/>
+    <trip id="39" type="civilianVehicles" depart="702.00" departLane="best" departPos="random" departSpeed="max" from="-10153774#3" to="10252688#2"/>
+    <trip id="40" type="civilianVehicles" depart="720.00" departLane="best" departPos="random" departSpeed="max" from="18551407" to="456585720"/>
+    <trip id="41" type="civilianVehicles" depart="738.00" departLane="best" departPos="random" departSpeed="max" from="4663063" to="-547852723"/>
+    <trip id="42" type="civilianVehicles" depart="756.00" departLane="best" departPos="random" departSpeed="max" from="10153770#0" to="-13807816#1"/>
+    <trip id="43" type="civilianVehicles" depart="774.00" departLane="best" departPos="random" departSpeed="max" from="-15032836" to="-265631782#0"/>
+    <trip id="44" type="civilianVehicles" depart="792.00" departLane="best" departPos="random" departSpeed="max" from="-10153774#3" to="-3996363"/>
+    <trip id="45" type="civilianVehicles" depart="810.00" departLane="best" departPos="random" departSpeed="max" from="-13812855#1" to="25650209"/>
+    <trip id="46" type="civilianVehicles" depart="828.00" departLane="best" departPos="random" departSpeed="max" from="462485798#0" to="143328191"/>
+    <trip id="47" type="civilianVehicles" depart="846.00" departLane="best" departPos="random" departSpeed="max" from="547852723" to="26296489#1"/>
+    <trip id="48" type="civilianVehicles" depart="864.00" departLane="best" departPos="random" departSpeed="max" from="-15032810#3" to="10252688#2"/>
+    <trip id="49" type="civilianVehicles" depart="882.00" departLane="best" departPos="random" departSpeed="max" from="-24039250#1" to="28596259"/>
+    <trip id="50" type="civilianVehicles" depart="900.00" departLane="best" departPos="random" departSpeed="max" from="-35491448" to="-462485798#1"/>
+    <trip id="51" type="civilianVehicles" depart="918.00" departLane="best" departPos="random" departSpeed="max" from="296783455#0" to="-34188760#2"/>
+    <trip id="52" type="civilianVehicles" depart="936.00" departLane="best" departPos="random" departSpeed="max" from="56444563" to="45756713"/>
+    <trip id="53" type="civilianVehicles" depart="954.00" departLane="best" departPos="random" departSpeed="max" from="-187850237#1" to="43247645#1"/>
+    <trip id="54" type="civilianVehicles" depart="972.00" departLane="best" departPos="random" departSpeed="max" from="-28596259" to="10252554"/>
+    <trip id="55" type="civilianVehicles" depart="990.00" departLane="best" departPos="random" departSpeed="max" from="-224690165" to="-35566105"/>
+    <trip id="56" type="civilianVehicles" depart="1008.00" departLane="best" departPos="random" departSpeed="max" from="-25650209" to="12898225#1"/>
+    <trip id="57" type="civilianVehicles" depart="1026.00" departLane="best" departPos="random" departSpeed="max" from="-3996372" to="43331060#1"/>
+    <trip id="58" type="civilianVehicles" depart="1044.00" departLane="best" departPos="random" departSpeed="max" from="-448801940#1" to="-35488968"/>
+    <trip id="59" type="civilianVehicles" depart="1062.00" departLane="best" departPos="random" departSpeed="max" from="-3996372" to="-22711240"/>
+    <trip id="60" type="civilianVehicles" depart="1080.00" departLane="best" departPos="random" departSpeed="max" from="920556807" to="15032836"/>
+    <trip id="61" type="civilianVehicles" depart="1098.00" departLane="best" departPos="random" departSpeed="max" from="-296783455#4" to="34315533#2"/>
+    <trip id="62" type="civilianVehicles" depart="1116.00" departLane="best" departPos="random" departSpeed="max" from="176036433" to="42137042"/>
+    <trip id="63" type="civilianVehicles" depart="1134.00" departLane="best" departPos="random" departSpeed="max" from="-13230810#2" to="-832931366"/>
+    <trip id="64" type="civilianVehicles" depart="1152.00" departLane="best" departPos="random" departSpeed="max" from="-35565936" to="12000121"/>
+    <trip id="65" type="civilianVehicles" depart="1170.00" departLane="best" departPos="random" departSpeed="max" from="-3996361" to="-22711240"/>
+    <trip id="66" type="civilianVehicles" depart="1188.00" departLane="best" departPos="random" departSpeed="max" from="-22780755#1" to="195245432#0"/>
+    <trip id="67" type="civilianVehicles" depart="1206.00" departLane="best" departPos="random" departSpeed="max" from="-100106502#7" to="-28102019"/>
+    <trip id="68" type="civilianVehicles" depart="1224.00" departLane="best" departPos="random" departSpeed="max" from="-187850237#1" to="13812855#1"/>
+    <trip id="69" type="civilianVehicles" depart="1242.00" departLane="best" departPos="random" departSpeed="max" from="-12898225#1" to="-143328130"/>
+    <trip id="70" type="civilianVehicles" depart="1260.00" departLane="best" departPos="random" departSpeed="max" from="34188760#0" to="-504874502"/>
+    <trip id="71" type="civilianVehicles" depart="1278.00" departLane="best" departPos="random" departSpeed="max" from="183924421" to="142571459"/>
+    <trip id="72" type="civilianVehicles" depart="1296.00" departLane="best" departPos="random" departSpeed="max" from="-187850237#1" to="10153774#3"/>
+    <trip id="73" type="civilianVehicles" depart="1314.00" departLane="best" departPos="random" departSpeed="max" from="13230770#0" to="22780718"/>
+    <trip id="74" type="civilianVehicles" depart="1332.00" departLane="best" departPos="random" departSpeed="max" from="-28596259" to="-28596208#0"/>
+    <trip id="75" type="civilianVehicles" depart="1350.00" departLane="best" departPos="random" departSpeed="max" from="-42137222" to="12901173"/>
+    <trip id="76" type="civilianVehicles" depart="1368.00" departLane="best" departPos="random" departSpeed="max" from="-3996371" to="40248095"/>
+    <trip id="77" type="civilianVehicles" depart="1386.00" departLane="best" departPos="random" departSpeed="max" from="3996390#0" to="143328191"/>
+    <trip id="78" type="civilianVehicles" depart="1404.00" departLane="best" departPos="random" departSpeed="max" from="18551387" to="-13810767"/>
+    <trip id="79" type="civilianVehicles" depart="1422.00" departLane="best" departPos="random" departSpeed="max" from="920556807" to="-92371055"/>
+    <trip id="80" type="civilianVehicles" depart="1440.00" departLane="best" departPos="random" departSpeed="max" from="-10252688#2" to="-34188760#2"/>
+    <trip id="81" type="civilianVehicles" depart="1458.00" departLane="best" departPos="random" departSpeed="max" from="23145971" to="-15032824"/>
+    <trip id="82" type="civilianVehicles" depart="1476.00" departLane="best" departPos="random" departSpeed="max" from="5575745#0" to="5109447"/>
+    <trip id="83" type="civilianVehicles" depart="1494.00" departLane="best" departPos="random" departSpeed="max" from="-12896875" to="42981802"/>
+    <trip id="84" type="civilianVehicles" depart="1512.00" departLane="best" departPos="random" departSpeed="max" from="-45756757" to="12898225#1"/>
+    <trip id="85" type="civilianVehicles" depart="1530.00" departLane="best" departPos="random" departSpeed="max" from="-275528248" to="5649264"/>
+    <trip id="86" type="civilianVehicles" depart="1548.00" departLane="best" departPos="random" departSpeed="max" from="-3996371" to="-43246686"/>
+    <trip id="87" type="civilianVehicles" depart="1566.00" departLane="best" departPos="random" departSpeed="max" from="22780752" to="-35599325#1"/>
+    <trip id="88" type="civilianVehicles" depart="1584.00" departLane="best" departPos="random" departSpeed="max" from="22780751" to="28596259"/>
+    <trip id="89" type="civilianVehicles" depart="1602.00" departLane="best" departPos="random" departSpeed="max" from="41163737#0" to="448801940#1"/>
+    <trip id="90" type="civilianVehicles" depart="1620.00" departLane="best" departPos="random" departSpeed="max" from="23224468" to="-18551387"/>
+    <trip id="91" type="civilianVehicles" depart="1638.00" departLane="best" departPos="random" departSpeed="max" from="-13230810#2" to="82591338"/>
+    <trip id="92" type="civilianVehicles" depart="1656.00" departLane="best" departPos="random" departSpeed="max" from="-40248095" to="-15032842"/>
+    <trip id="93" type="civilianVehicles" depart="1674.00" departLane="best" departPos="random" departSpeed="max" from="-42981802" to="448801940#1"/>
+    <trip id="94" type="civilianVehicles" depart="1692.00" departLane="best" departPos="random" departSpeed="max" from="13807816#0" to="40248095"/>
+    <trip id="95" type="civilianVehicles" depart="1710.00" departLane="best" departPos="random" departSpeed="max" from="296783455#0" to="-25499299#1"/>
+    <trip id="96" type="civilianVehicles" depart="1728.00" departLane="best" departPos="random" departSpeed="max" from="-42966885" to="224690165"/>
+    <trip id="97" type="civilianVehicles" depart="1746.00" departLane="best" departPos="random" departSpeed="max" from="3996362" to="435065524"/>
+    <trip id="98" type="civilianVehicles" depart="1764.00" departLane="best" departPos="random" departSpeed="max" from="-142571459" to="-34188760#2"/>
+    <trip id="99" type="civilianVehicles" depart="1782.00" departLane="best" departPos="random" departSpeed="max" from="69491356" to="4663165#3"/>
+    <trip id="100" type="civilianVehicles" depart="1800.00" departLane="best" departPos="random" departSpeed="max" from="-5090431" to="-11043958"/>
+    <trip id="101" type="civilianVehicles" depart="1818.00" departLane="best" departPos="random" departSpeed="max" from="-3996377" to="-446073999#0"/>
+    <trip id="102" type="civilianVehicles" depart="1836.00" departLane="best" departPos="random" departSpeed="max" from="-3996360" to="-143328130"/>
+    <trip id="103" type="civilianVehicles" depart="1854.00" departLane="best" departPos="random" departSpeed="max" from="-11043980" to="-35566105"/>
+    <trip id="104" type="civilianVehicles" depart="1872.00" departLane="best" departPos="random" departSpeed="max" from="311986910" to="-23145971"/>
+    <trip id="105" type="civilianVehicles" depart="1890.00" departLane="best" departPos="random" departSpeed="max" from="-24309710" to="-25499299#1"/>
+    <trip id="106" type="civilianVehicles" depart="1908.00" departLane="best" departPos="random" departSpeed="max" from="-11043980" to="3996371"/>
+    <trip id="107" type="civilianVehicles" depart="1926.00" departLane="best" departPos="random" departSpeed="max" from="10153813" to="-15032824"/>
+    <trip id="108" type="civilianVehicles" depart="1944.00" departLane="best" departPos="random" departSpeed="max" from="18551407" to="-35599325#1"/>
+    <trip id="109" type="civilianVehicles" depart="1962.00" departLane="best" departPos="random" departSpeed="max" from="-22781232" to="-5575745#0"/>
+    <trip id="110" type="civilianVehicles" depart="1980.00" departLane="best" departPos="random" departSpeed="max" from="-12896875" to="-176036433"/>
+    <trip id="111" type="civilianVehicles" depart="1998.00" departLane="best" departPos="random" departSpeed="max" from="15095805" to="56144407#0"/>
+    <trip id="112" type="civilianVehicles" depart="2016.00" departLane="best" departPos="random" departSpeed="max" from="3996363" to="-10153813"/>
+    <trip id="113" type="civilianVehicles" depart="2034.00" departLane="best" departPos="random" departSpeed="max" from="-43247645#1" to="372624227"/>
+    <trip id="114" type="civilianVehicles" depart="2052.00" departLane="best" departPos="random" departSpeed="max" from="-11043975" to="-25498996#0"/>
+    <trip id="115" type="civilianVehicles" depart="2070.00" departLane="best" departPos="random" departSpeed="max" from="13810767" to="256520229#5"/>
+    <trip id="116" type="civilianVehicles" depart="2088.00" departLane="best" departPos="random" departSpeed="max" from="183924421" to="341228120#4"/>
+    <trip id="117" type="civilianVehicles" depart="2106.00" departLane="best" departPos="random" departSpeed="max" from="-12000121" to="-10153770#0"/>
+    <trip id="118" type="civilianVehicles" depart="2124.00" departLane="best" departPos="random" departSpeed="max" from="22735911#0" to="22735855"/>
+    <trip id="119" type="civilianVehicles" depart="2142.00" departLane="best" departPos="random" departSpeed="max" from="143328189" to="42965240"/>
+    <trip id="120" type="civilianVehicles" depart="2160.00" departLane="best" departPos="random" departSpeed="max" from="113539220" to="15032836"/>
+    <trip id="121" type="civilianVehicles" depart="2178.00" departLane="best" departPos="random" departSpeed="max" from="-3996377" to="26296489#1"/>
+    <trip id="122" type="civilianVehicles" depart="2196.00" departLane="best" departPos="random" departSpeed="max" from="265631782#0" to="11043975"/>
+    <trip id="123" type="civilianVehicles" depart="2214.00" departLane="best" departPos="random" departSpeed="max" from="-12901173" to="3996361"/>
+    <trip id="124" type="civilianVehicles" depart="2232.00" departLane="best" departPos="random" departSpeed="max" from="35566105" to="28596294"/>
+    <trip id="125" type="civilianVehicles" depart="2250.00" departLane="best" departPos="random" departSpeed="max" from="-12896963" to="256520229#5"/>
+    <trip id="126" type="civilianVehicles" depart="2268.00" departLane="best" departPos="random" departSpeed="max" from="-44120926" to="-35488968"/>
+    <trip id="127" type="civilianVehicles" depart="2286.00" departLane="best" departPos="random" departSpeed="max" from="-13230810#2" to="7970661#21"/>
+    <trip id="128" type="civilianVehicles" depart="2304.00" departLane="best" departPos="random" departSpeed="max" from="13810919#0" to="37407325"/>
+    <trip id="129" type="civilianVehicles" depart="2322.00" departLane="best" departPos="random" departSpeed="max" from="-807626157" to="28596294"/>
+    <trip id="130" type="civilianVehicles" depart="2340.00" departLane="best" departPos="random" departSpeed="max" from="-142571459" to="42965248"/>
+    <trip id="131" type="civilianVehicles" depart="2358.00" departLane="best" departPos="random" departSpeed="max" from="28596208#0" to="-15032842"/>
+    <trip id="132" type="civilianVehicles" depart="2376.00" departLane="best" departPos="random" departSpeed="max" from="22694251" to="-143328130"/>
+    <trip id="133" type="civilianVehicles" depart="2394.00" departLane="best" departPos="random" departSpeed="max" from="4663063" to="42965137#2"/>
+    <trip id="134" type="civilianVehicles" depart="2412.00" departLane="best" departPos="random" departSpeed="max" from="-22780718" to="143328191"/>
+    <trip id="135" type="civilianVehicles" depart="2430.00" departLane="best" departPos="random" departSpeed="max" from="42966903" to="42137042"/>
+    <trip id="136" type="civilianVehicles" depart="2448.00" departLane="best" departPos="random" departSpeed="max" from="-24039250#1" to="12901173"/>
+    <trip id="137" type="civilianVehicles" depart="2466.00" departLane="best" departPos="random" departSpeed="max" from="-5090431" to="151795028#1"/>
+    <trip id="138" type="civilianVehicles" depart="2484.00" departLane="best" departPos="random" departSpeed="max" from="-456585720" to="47515681"/>
+    <trip id="139" type="civilianVehicles" depart="2502.00" departLane="best" departPos="random" departSpeed="max" from="3996378" to="341228120#4"/>
+    <trip id="140" type="civilianVehicles" depart="2520.00" departLane="best" departPos="random" departSpeed="max" from="42965138" to="-10153778"/>
+    <trip id="141" type="civilianVehicles" depart="2538.00" departLane="best" departPos="random" departSpeed="max" from="504874502" to="10252554"/>
+    <trip id="142" type="civilianVehicles" depart="2556.00" departLane="best" departPos="random" departSpeed="max" from="35565847" to="15032810#3"/>
+    <trip id="143" type="civilianVehicles" depart="2574.00" departLane="best" departPos="random" departSpeed="max" from="-3996372" to="-296783455#0"/>
+    <trip id="144" type="civilianVehicles" depart="2592.00" departLane="best" departPos="random" departSpeed="max" from="-264545418" to="4663159#5"/>
+    <trip id="145" type="civilianVehicles" depart="2610.00" departLane="best" departPos="random" departSpeed="max" from="-264545418" to="12901173"/>
+    <trip id="146" type="civilianVehicles" depart="2628.00" departLane="best" departPos="random" departSpeed="max" from="-24039249" to="12896875"/>
+    <trip id="147" type="civilianVehicles" depart="2646.00" departLane="best" departPos="random" departSpeed="max" from="-24039249" to="45756713"/>
+    <trip id="148" type="civilianVehicles" depart="2664.00" departLane="best" departPos="random" departSpeed="max" from="-11043989" to="5649264"/>
+    <trip id="149" type="civilianVehicles" depart="2682.00" departLane="best" departPos="random" departSpeed="max" from="-24039250#1" to="448801940#1"/>
+    <trip id="150" type="civilianVehicles" depart="2700.00" departLane="best" departPos="random" departSpeed="max" from="-45756713" to="25650209"/>
+    <trip id="151" type="civilianVehicles" depart="2718.00" departLane="best" departPos="random" departSpeed="max" from="-142571177" to="807626157"/>
+    <trip id="152" type="civilianVehicles" depart="2736.00" departLane="best" departPos="random" departSpeed="max" from="-43247645#1" to="-13230770#0"/>
+    <trip id="153" type="civilianVehicles" depart="2754.00" departLane="best" departPos="random" departSpeed="max" from="-11043975" to="118652988"/>
+    <trip id="154" type="civilianVehicles" depart="2772.00" departLane="best" departPos="random" departSpeed="max" from="25498996#0" to="42965248"/>
+    <trip id="155" type="civilianVehicles" depart="2790.00" departLane="best" departPos="random" departSpeed="max" from="143328130" to="-18551387"/>
+    <trip id="156" type="civilianVehicles" depart="2808.00" departLane="best" departPos="random" departSpeed="max" from="-5575743" to="15032836"/>
+    <trip id="157" type="civilianVehicles" depart="2826.00" departLane="best" departPos="random" departSpeed="max" from="13810919#0" to="-143328091"/>
+    <trip id="158" type="civilianVehicles" depart="2844.00" departLane="best" departPos="random" departSpeed="max" from="-42965137#2" to="-11043958"/>
+    <trip id="159" type="civilianVehicles" depart="2862.00" departLane="best" departPos="random" departSpeed="max" from="-44120926" to="42965189"/>
+    <trip id="160" type="civilianVehicles" depart="2880.00" departLane="best" departPos="random" departSpeed="max" from="-256520229#9" to="3996360"/>
+    <trip id="161" type="civilianVehicles" depart="2898.00" departLane="best" departPos="random" departSpeed="max" from="22780755#0" to="25650209"/>
+    <trip id="162" type="civilianVehicles" depart="2916.00" departLane="best" departPos="random" departSpeed="max" from="547852723" to="275528248"/>
+    <trip id="163" type="civilianVehicles" depart="2934.00" departLane="best" departPos="random" departSpeed="max" from="23224468" to="13230810#2"/>
+    <trip id="164" type="civilianVehicles" depart="2952.00" departLane="best" departPos="random" departSpeed="max" from="142643513" to="-13810767"/>
+    <trip id="165" type="civilianVehicles" depart="2970.00" departLane="best" departPos="random" departSpeed="max" from="42965138" to="-22480573#1"/>
+    <trip id="166" type="civilianVehicles" depart="2988.00" departLane="best" departPos="random" departSpeed="max" from="-118652988" to="-10153813"/>
+    <trip id="167" type="civilianVehicles" depart="3006.00" departLane="best" departPos="random" departSpeed="max" from="22780755#0" to="13230817#4"/>
+    <trip id="168" type="civilianVehicles" depart="3024.00" departLane="best" departPos="random" departSpeed="max" from="176036433" to="10252688#2"/>
+    <trip id="169" type="civilianVehicles" depart="3042.00" departLane="best" departPos="random" departSpeed="max" from="-35566200" to="-13230770#0"/>
+    <trip id="170" type="civilianVehicles" depart="3060.00" departLane="best" departPos="random" departSpeed="max" from="15095786" to="82591338"/>
+    <trip id="171" type="civilianVehicles" depart="3078.00" departLane="best" departPos="random" departSpeed="max" from="4663063" to="-12000120"/>
+    <trip id="172" type="civilianVehicles" depart="3096.00" departLane="best" departPos="random" departSpeed="max" from="10153778" to="15032810#3"/>
+    <trip id="173" type="civilianVehicles" depart="3114.00" departLane="best" departPos="random" departSpeed="max" from="-12896875" to="10153774#3"/>
+    <trip id="174" type="civilianVehicles" depart="3132.00" departLane="best" departPos="random" departSpeed="max" from="42965138" to="37407325"/>
+    <trip id="175" type="civilianVehicles" depart="3150.00" departLane="best" departPos="random" departSpeed="max" from="-42965240" to="-56444563"/>
+    <trip id="176" type="civilianVehicles" depart="3168.00" departLane="best" departPos="random" departSpeed="max" from="92371055" to="296783455#4"/>
+    <trip id="177" type="civilianVehicles" depart="3186.00" departLane="best" departPos="random" departSpeed="max" from="13810919#0" to="-3996378"/>
+    <trip id="178" type="civilianVehicles" depart="3204.00" departLane="best" departPos="random" departSpeed="max" from="-34315533#2" to="45756757"/>
+    <trip id="179" type="civilianVehicles" depart="3222.00" departLane="best" departPos="random" departSpeed="max" from="3996376#0" to="448801940#1"/>
+    <trip id="180" type="civilianVehicles" depart="3240.00" departLane="best" departPos="random" departSpeed="max" from="-37407325" to="35566200"/>
+    <trip id="181" type="civilianVehicles" depart="3258.00" departLane="best" departPos="random" departSpeed="max" from="143328142" to="22735855"/>
+    <trip id="182" type="civilianVehicles" depart="3276.00" departLane="best" departPos="random" departSpeed="max" from="43246686" to="42965248"/>
+    <trip id="183" type="civilianVehicles" depart="3294.00" departLane="best" departPos="random" departSpeed="max" from="-118652988" to="-22780755#0"/>
+    <trip id="184" type="civilianVehicles" depart="3312.00" departLane="best" departPos="random" departSpeed="max" from="69491356" to="-142643513"/>
+    <trip id="185" type="civilianVehicles" depart="3330.00" departLane="best" departPos="random" departSpeed="max" from="-37407325" to="-142643513"/>
+    <trip id="186" type="civilianVehicles" depart="3348.00" departLane="best" departPos="random" departSpeed="max" from="-44121401" to="-3996363"/>
+    <trip id="187" type="civilianVehicles" depart="3366.00" departLane="best" departPos="random" departSpeed="max" from="-42137222" to="-143328163"/>
+    <trip id="188" type="civilianVehicles" depart="3384.00" departLane="best" departPos="random" departSpeed="max" from="-24039249" to="-142558646"/>
+    <trip id="189" type="civilianVehicles" depart="3402.00" departLane="best" departPos="random" departSpeed="max" from="-40248095" to="11043980"/>
+    <trip id="190" type="civilianVehicles" depart="3420.00" departLane="best" departPos="random" departSpeed="max" from="-5995705#4" to="43331060#1"/>
+    <trip id="191" type="civilianVehicles" depart="3438.00" departLane="best" departPos="random" departSpeed="max" from="-43331060#2" to="3996360"/>
+    <trip id="192" type="civilianVehicles" depart="3456.00" departLane="best" departPos="random" departSpeed="max" from="41163737#0" to="4663165#3"/>
+    <trip id="193" type="civilianVehicles" depart="3474.00" departLane="best" departPos="random" departSpeed="max" from="-10252688#2" to="12000121"/>
+    <trip id="194" type="civilianVehicles" depart="3492.00" departLane="best" departPos="random" departSpeed="max" from="-285740195#1" to="24155171#1"/>
+    <trip id="195" type="civilianVehicles" depart="3510.00" departLane="best" departPos="random" departSpeed="max" from="205301482#0" to="-35565847"/>
+    <trip id="196" type="civilianVehicles" depart="3528.00" departLane="best" departPos="random" departSpeed="max" from="10153813" to="-42986506#0"/>
+    <trip id="197" type="civilianVehicles" depart="3546.00" departLane="best" departPos="random" departSpeed="max" from="25498997#0" to="-22694251"/>
+    <trip id="198" type="civilianVehicles" depart="3564.00" departLane="best" departPos="random" departSpeed="max" from="35488968" to="42705094"/>
+    <trip id="199" type="civilianVehicles" depart="3582.00" departLane="best" departPos="random" departSpeed="max" from="-45756757" to="34315533#2"/>
+</routes>

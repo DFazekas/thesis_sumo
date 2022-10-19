@@ -12,6 +12,7 @@ from src.utilities import generate_graph_conflict_heatmap as heatmap
 from sumolib import checkBinary  # noqa
 from src.runner import run_simulation, process_conflicts
 from pathlib import Path
+import time
 
 # Enables the Windows OS to apply color in their terminal.
 os.system('color')
@@ -26,25 +27,30 @@ except ImportError:
     sys.exit(colored("please declare environment variable 'SUMO_HOME'", "red"))
 
 
-demands = [1000, 1500]  # vehicles per hour. [1000, 1500, 2000]
+demands = [200]  # vehicles per hour. [1200, 1500, 1800]
 reruns = 1  # The number of times to rerun the same simulation
+
+# FIXME - I don't think the PR is working. Check both 0% and 100%.
+# FIXME - Compare thesis with debug code. It runs 5 seconds. Why?
+caseStudyDir = "src/case_study_real_world"
 
 
 def filter(string, substr):
     return [str for str in string if any(sub in str for sub in substr)]
 
-# FIXME - Remove "Collision" from SSM csv data.
 
-
-def main(sumoBinary):
+def main(sumoBinary, options):
     """Generates all prerequisite files to run the simulation, export data, and process the data."""
 
+    # Delete all the previous output data.
+    if options.nosim == False:
+        clearOutputDirectory()
+
     # Get all penetration vType distribution files.
-    # FIXME - I need the output files to explicitly label the demand ratios.
     path = "src/config/vTypes"
     fileNames = os.listdir(path)
     vTypeFiles = [f'{path}/{name}' for name in fileNames]
-    # vTypeFiles = [vTypeFile[0], vTypeFile[1]]
+    # vTypeFiles = [vTypeFile[0]]
 
     # Run grid network x100 at 1000 veh/hr and 0% CVs, average the outputs, aggregrate the SSM data. Repeat for 25%, 50%, 75%, and 100% CVs. Repeat for 1500 veh/hr and 2000 veh/hr.
     # Expecting: 15 data files.
@@ -63,11 +69,20 @@ def main(sumoBinary):
             for runNum in list(range(reruns)):
                 prefix = f"d{demand}_p{penetrationRatio}_r{runNum}"
                 runStats = {"current": runNum, "total": reruns}
-                run_simulation.runGrid(
-                    sumoBinary, vTypeFile, demand, prefix, runNum, runStats)
+                if options.nosim == False:
+                    tic = time.perf_counter()
+                    # run_simulation.runGrid(
+                    #     sumoBinary, vTypeFile, demand, prefix, runNum, runStats)
+                    run_simulation.runRealWorld(
+                        sumoBinary, vTypeFile, demand, prefix, runNum, runStats)
+                    toc = time.perf_counter()
+                    print(
+                        f"""SUMO took ({colored(f"{toc-tic:0.4f}", "red")}) seconds.""")
 
             # Get all SSM files
-            ssmPath = "src/case_study_grid/output/ssm"
+            # ssmPath = "src/case_study_grid/output/ssm"
+
+            ssmPath = f"{caseStudyDir}/output/ssm"
             ssmFiles = filter(os.listdir(ssmPath), [
                               f"d{demand}_p{penetrationRatio}"])
             ssmAbsFiles = [
@@ -76,14 +91,14 @@ def main(sumoBinary):
                 f"\t>>> Processing ({colored(len(ssmAbsFiles), 'yellow')}) ({colored(f'd{demand}','magenta')}_{colored(f'p{penetrationRatio}', 'cyan')}) conflict files...")
             process_conflicts.averageConflicts(
                 ssmAbsFiles,
-                f"src/case_study_grid/output/stats/ssm_d{demand}_p{penetrationRatio}.csv")
+                f"{caseStudyDir}/output/stats/ssm_d{demand}_p{penetrationRatio}.csv")
 
             print(
                 f"\t{colored('[✓]', 'green')} SSM ({colored(f'd{demand}','magenta')}_{colored(f'p{penetrationRatio}', 'cyan')}) processing complete.")
 
     print("""\n> Generating SSM report file...""")
-    ssmStatPath = "src/case_study_grid/output/stats"
-    ssmReportFile = "src/case_study_grid/output/report.csv"
+    ssmStatPath = f"{caseStudyDir}/output/stats"
+    ssmReportFile = f"{caseStudyDir}/output/report.csv"
     process_conflicts.generateReport(ssmStatPath, ssmReportFile)
     print(
         f"""\t{colored('[✓]', 'green')} SSM report generation complete.""")
@@ -91,32 +106,33 @@ def main(sumoBinary):
     # Generate SSM heatmap chart.
     print("""\n> Generating SSM heatmap chart...""")
 
-    heatmap.process_file("src/case_study_grid/output/report.csv",
-                         "src/case_study_grid/output/graphs")
+    heatmap.process_file(f"{caseStudyDir}/output/report.csv",
+                         f"{caseStudyDir}/output/graphs")
     print(
         f"""\t{colored('[✓]', 'green')} SSM heatmap generation complete.""")
 
-    # Run real-world network x100 at 1000 veh/hr, average the outputs, aggregrate the SSM data. Repeat for 1500 veh/hr and 2000 veh/hr.
+
+def clearOutputDirectory():
+    """Delete all old output data."""
+    folders = [f"{caseStudyDir}/output/ssm",
+               f"{caseStudyDir}/output/stats",
+               f"{caseStudyDir}/output/dump",
+               f"{caseStudyDir}/output/fcd"]
+
+    print(f"""> Deleting old data...""")
+
+    for folder in folders:
+        for fileName in os.listdir(folder):
+            filePath = os.path.join(folder, fileName)
+            try:
+                if os.path.isfile(filePath):
+                    os.unlink(filePath)
+            except Exception as e:
+                print(colored(f"Failed to delete {filePath}. Reason {e}"))
+
+    print(f"""\t{colored("[✓]", "green")} Old data successfully deleted.""")
+
     # TODO: Add real-world case study.
-
-    # TODO: Inject a single EV. Can't use the distribution for the other civilian vehicles.
-
-    # Convert ssm reports from XML format into CSV format.
-    # runner.process_conflicts.main(
-    #     inputFilePath=f"{dir}/output/data/ssm_reports.xml",
-    #     outputFilePath=f"{dir}/output/data/conflicts.csv")
-
-    # Generate graphs from ssm reports (CSV format).
-    # TODO: These files won't exist until after runtime.
-    # files = [
-    #     "C:\\Users\\thoma\\OneDrive\\Documents\\Thesis\\drafts\\thesis_sumo\\case_studies\\case_study_01\\scenario_01\\output\\data\\conflicts_2022_08_04-18_21_15.csv",
-    #     "C:\\Users\\thoma\\OneDrive\\Documents\\Thesis\\drafts\\thesis_sumo\\case_studies\\case_study_01\\scenario_01\\output\\data\\conflicts_2022_08_04-18_29_26.csv",
-    #     "C:\\Users\\thoma\\OneDrive\\Documents\\Thesis\\drafts\\thesis_sumo\\case_studies\\case_study_01\\scenario_01\\output\\data\\conflicts_2022_08_04-18_29_59.csv"
-    # ]
-    # runner.generate_graphs.main(
-    #     inputFilePaths=files,
-    #     outputFilePath=f"{dir}/output/graphs/heatmap.png"
-    # )
 
 
 def get_options():
@@ -125,6 +141,8 @@ def get_options():
     optParser = optparse.OptionParser()
     optParser.add_option("--nogui", action="store_true",
                          default=False, help="run the commandline version of SUMO.")
+    optParser.add_option("--nosim", action="store_true",
+                         default=False, help="only reprocess old data.")
     options, _ = optParser.parse_args()
     return options
 
@@ -138,4 +156,4 @@ if __name__ == "__main__":
     else:
         sumoBinary = checkBinary('sumo-gui')
 
-    main(sumoBinary)
+    main(sumoBinary, options)

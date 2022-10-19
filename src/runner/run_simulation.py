@@ -20,16 +20,16 @@ def main(sumoBinary, networkFilePath: str, vTypeFilePath: str, tripFilePath: str
 
 
 def runGrid(sumoBinary, vTypeFile: str, demand: float, prefix: str, runNum: int, runStats):
-    gridNetwork = "src/case_study_grid/config/grid.net.xml"
-    gridTrips = "src/case_study_grid/config/trips.trips.xml"
-    gridOutput = "src/case_study_grid/output"
-    evTrip = {"origin": "top1B3", "dest": "D0bottom3"}
+    network = "src/case_study_grid/config/grid.net.xml"
+    trips = "src/case_study_grid/config/trips.trips.xml"
+    output = "src/case_study_grid/output"
+    evTrip = {"origin": "top0A2", "dest": "C0bottom2"}
 
     main(sumoBinary=sumoBinary,
-         networkFilePath=gridNetwork,
+         networkFilePath=network,
          vTypeFilePath=vTypeFile,
-         tripFilePath=gridTrips,
-         outputDir=gridOutput,
+         tripFilePath=trips,
+         outputDir=output,
          demand=demand,
          prefix=prefix,
          evTrip=evTrip,
@@ -39,17 +39,21 @@ def runGrid(sumoBinary, vTypeFile: str, demand: float, prefix: str, runNum: int,
         f"""\t{colored('[✓]', 'green')} Simulation ({colored(runStats['current']+1, 'yellow')} / {colored(runStats['total'],'yellow')}) complete.""")
 
 
-def runRealWorld(sumoBinary, vTypeFile, demand, runNum):
-    realNetwork = "src/case_study_grid/config/grid.net.xml"
-    realTrips = "src/case_study_grid/config/trips.trips.xml"
-    realOutput = "src/case_study_grid/output"
-    evTrip = {"origin": "top1B3", "dest": "D0bottom3"}
+def runRealWorld(sumoBinary, vTypeFile: str, demand: float, prefix: str, runNum: int, runStats):
+    network = "src/case_study_real_world/config/realworld.net.xml"
+    trips = "src/case_study_real_world/config/trips.trips.xml"
+    output = "src/case_study_real_world/output"
+    evTrip = {"origin": "195245433#0", "dest": "28596294"}
 
-    main(sumoBinary,
-         realNetwork,
-         vTypeFile,
-         realTrips,
-         realOutput,
-         demand,
-         runNum,
-         evTrip)
+    main(sumoBinary=sumoBinary,
+         networkFilePath=network,
+         vTypeFilePath=vTypeFile,
+         tripFilePath=trips,
+         outputDir=output,
+         demand=demand,
+         prefix=prefix,
+         evTrip=evTrip,
+         runNum=runNum)
+
+    print(
+        f"""\t{colored('[✓]', 'green')} Simulation ({colored(runStats['current']+1, 'yellow')} / {colored(runStats['total'],'yellow')}) complete.""")

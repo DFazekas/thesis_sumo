@@ -2,46 +2,46 @@
 
   <vTypeDistribution id="civilianVehicles">
     <!-- Ordinary Civilian vehicle -->
-    <vType id="Regular" accel="3.0" decel="6.0" length="5.0" minGap="2.5" maxSpeed="50.0" sigma="0.95" actionStepLength="1.0" color="white" probability="0.25">
+    <vType id="Regular" accel="3.5" decel="4.5" emergencyDecel="8.0" length="5.0" minGap="1.5" maxSpeed="50.0" sigma="0.10" actionStepLength="1.0" color="white" probability="0.25">
       <!-- ~~~~~~~~ SSM Device ~~~~~~~~ -->
-      <param key="has.ssm.device" value="true" />
-      <param key="device.ssm.measures" value="TTC" />
-      <param key="device.ssm.thresholds" value="3.0" />
+      <!-- <param key="has.ssm.device" value="true" />
+      <param key="device.ssm.measures" value="TTC" /> -->
+      <!-- <param key="device.ssm.thresholds" value="3.0" />
       <param key="device.ssm.range" value="20.0" />
       <param key="device.ssm.extratime" value="2.0" />
       <param key="device.ssm.trajectories" value="false" />
       <param key="device.ssm.geo" value="false" />
       <param key="device.ssm.write-positions" value="false" />
-      <param key="device.ssm.write-lane-positions" value="false" />
+      <param key="device.ssm.write-lane-positions" value="false" /> -->
     </vType>
 
     <!-- Connected Civilian vehicle -->
-    <vType id="Connected" accel="3.0" decel="6.0" length="5.0" minGap="2.5" maxSpeed="50.0" sigma="0.95" color="blue" probability="0.75">
+    <vType id="Connected" accel="3.5" decel="4.5" emergencyDecel="8.0" length="5.0" minGap="1.5" maxSpeed="50.0" sigma="0.10" color="blue" probability="0.75">
       <!-- ~~~~~~~~ SSM Device ~~~~~~~~ -->
-      <param key="has.ssm.device" value="true" />
-      <param key="device.ssm.measures" value="TTC" />
-      <param key="device.ssm.thresholds" value="3.0" />
+      <!-- <param key="has.ssm.device" value="true" />
+      <param key="device.ssm.measures" value="TTC" /> -->
+      <!-- <param key="device.ssm.thresholds" value="3.0" />
       <param key="device.ssm.range" value="20.0" />
       <param key="device.ssm.extratime" value="2.0" />
       <param key="device.ssm.trajectories" value="false" />
       <param key="device.ssm.geo" value="false" />
       <param key="device.ssm.write-positions" value="false" />
-      <param key="device.ssm.write-lane-positions" value="false" />
+      <param key="device.ssm.write-lane-positions" value="false" /> -->
     </vType>
 
   </vTypeDistribution>
 
 
   <!-- Ordinary ER vehicle -->
-  <vType id="EV" accel="2.0" decel="3.0" length="10.0" minGap="0.05" maxSpeed="50.0" sigma="0.95" speedFactor="1.5" guiShape="firebrigade" vClass="emergency" color="red" jmIgnoreKeepClearTime="0" probability="0.5">
+  <vType id="EV" accel="3.5" decel="4.5" emergencyDecel="8.0" length="10.0" minGap="1.5" maxSpeed="50.0" sigma="0.10" speedFactor="1.5" guiShape="firebrigade" vClass="emergency" color="red" jmIgnoreKeepClearTime="0" probability="0.5">
     <!-- ~~~~~~~~ Bluelight Device ~~~~~~~~ -->
     <param key="has.bluelight.device" value="true" />
 
     <!-- ~~~~~~~~ SSM Device ~~~~~~~~ -->
     <param key="has.ssm.device" value="true" />
     <param key="device.ssm.measures" value="TTC" />
-    <param key="device.ssm.thresholds" value="3.0" />
-    <param key="device.ssm.range" value="20.0" />
+    <!-- <param key="device.ssm.thresholds" value="3.0" />
+    <param key="device.ssm.range" value="20.0" /> -->
     <param key="device.ssm.extratime" value="2.0" />
     <param key="device.ssm.trajectories" value="false" />
     <param key="device.ssm.geo" value="false" />

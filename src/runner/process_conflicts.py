@@ -38,6 +38,7 @@ def main(inputFilePath, outputFilePath):
 
 
 def averageConflicts(files, outputFile):
+    desiredCols = ['CROSSING', 'FOLLOWING', 'MERGING']
     cols = ['type']
     # Flatten. Average. Export as CSV.
     runData = []
@@ -47,9 +48,16 @@ def averageConflicts(files, outputFile):
         data = data.groupby(['type'], as_index=False).size()
         runData.append(data)
 
+    # Merge and average all dataframes by 'type' column.
     df = pd.concat(runData).replace(
         0, np.nan).groupby("type", as_index=False).mean()
 
+    # Add missing 'type' rows with value of zero.
+    for col in desiredCols:
+        if (df['type'].eq(col)).any() == False:
+            df = df.append({'type': col, 'size': 0}, ignore_index=True)
+
+    # Output as CSV.
     df.to_csv(outputFile, sep=',', index=False)
 
 
@@ -64,7 +72,7 @@ def generateReport(inputFileDir: str, outputFile: str) -> None:
     dfs = []
     for file in files:
         # Extract the values for demand and PR from the file name.
-        demandVal = (re.search('d(\d{4})', file)).group(1)
+        demandVal = (re.search('d(\d{2,5})', file)).group(1)
         penVal = (re.search('p(\d{1,3})', file)).group(1)
 
         # Extract CSV data.

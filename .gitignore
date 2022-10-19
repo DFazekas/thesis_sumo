@@ -3,3 +3,6 @@
 **/logs.txt
 **/ssm/*
 **/stats/*
+**/log.txt
+**/output/dump/*
+**/output/graphs/*

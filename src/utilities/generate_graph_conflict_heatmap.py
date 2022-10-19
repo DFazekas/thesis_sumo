@@ -41,7 +41,7 @@ def get_data(file, label):
 
 def generate_heatmap(data: pd.DataFrame, outputFile: str, labels):
     plt.clf()
-    graph = sns.heatmap(data, cmap="flare")
+    graph = sns.heatmap(data, cmap="flare", annot=True)
     graph.set_title(labels["title"])
     graph.set_xlabel(labels["xLabel"])
     graph.set_ylabel(labels["yLabel"])

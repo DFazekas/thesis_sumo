@@ -16,7 +16,7 @@ Table of Contents
 The following command generates a symmetric 4x4 grid network with 400 meter roads between each intersection. Each road has 2 lanes. Each outer edge has an attached road leading outside of the network to help SUMO identify fringes.
 
 ```bash
-netgenerate --grid --grid.number=4 --grid.length=400 --grid.attach-length=100 --default.lanenumber=2 --fringe.guess=true --output-file="../data/grid.net.xml"
+netgenerate --grid --grid.number=3 --grid.length=400 --grid.attach-length=400 --default.lanenumber=2 --fringe.guess=true --default-junction-type="traffic_light_right_on_red" --output-file="src\case_study_grid\config\grid.net.xml"
 ```
 
 Where:
@@ -27,6 +27,7 @@ Where:
 - `default.lanenumber=[INT]` defines the number of lanes per edge.
 - `--grid.attach-length=[FLOAT]` defines the length of attached edges (fringes), in meters.
 - `--fringe.guess=[TRUE]` enables SUMO to automatically guess which edges are considered fringes.
+- `--default-junction-type=[STR]` sets the default junction type. Value `traffic_light_right_on_red` places signalized intersections.
 - `--output-file=[FILE]` defines the output network file.
 
 ---

@@ -43,7 +43,7 @@ def runRealWorld(sumoBinary, vTypeFile: str, demand: float, prefix: str, runNum:
     network = "src/case_study_real_world/config/realworld.net.xml"
     trips = "src/case_study_real_world/config/trips.trips.xml"
     output = "src/case_study_real_world/output"
-    evTrip = {"origin": "-447039230#1", "dest": "56144407#0"}
+    evTrip = {"origin": "-256520229#0", "dest": "166612561#0"}
 
     main(sumoBinary=sumoBinary,
          networkFilePath=network,

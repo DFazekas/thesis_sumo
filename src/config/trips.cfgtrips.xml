@@ -5,6 +5,6 @@
     <min-distance value="1500.0" />
     <net-file value="config/data/grid.net.xml" />
     <trip-attributes value="departPos=&quot;random&quot; departSpeed=&quot;max&quot; type=&quot;civilianVehicles&quot; departLane=&quot;best&quot;" />
-    <output-trip-file value="config/data/trips.trips.xml" />
+    <!-- <output-trip-file value="config/data/trips.trips.xml" /> -->
     <random value="True" />
 </configuration>

@@ -71,7 +71,9 @@ class Simulation:
                         "--net-file", networkFilePath,
                         "--insertion-rate", f"{demand}",
                         "--validate",
-                        '--output-trip-file', tripFilePath])
+                        # '--output-trip-file', tripFilePath
+                        '--route-file', tripFilePath
+                        ])
 
         self.start(sumoBinary, networkFilePath,
                    vTypeFilePath, tripFilePath, outputDir, runNum, prefix=prefix)

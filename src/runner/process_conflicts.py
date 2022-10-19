@@ -55,7 +55,8 @@ def averageConflicts(files, outputFile):
     # Add missing 'type' rows with value of zero.
     for col in desiredCols:
         if (df['type'].eq(col)).any() == False:
-            df = df.append({'type': col, 'size': 0}, ignore_index=True)
+            tempDf = pd.DataFrame({'type': [col], 'size': [0]})
+            df = pd.concat((df, tempDf), axis=0)
 
     # Output as CSV.
     df.to_csv(outputFile, sep=',', index=False)

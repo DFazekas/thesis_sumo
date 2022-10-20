@@ -62,14 +62,13 @@ def averageConflicts(files, outputFile):
     df.to_csv(outputFile, sep=',', index=False)
 
 
-def generateReport(inputFileDir: str, outputFile: str) -> None:
+def generateReport(files: list[str], outputFile: str) -> None:
     """Merges, cleans, and formats all SSM stat files. Exports as CSV.
 
     Args:
         inputFileDir (str): The directory of the SSM stat files.
         outputFile (str): The directory for the output file.
     """
-    files = os.listdir(inputFileDir)
     dfs = []
     for file in files:
         # Extract the values for demand and PR from the file name.
@@ -77,7 +76,7 @@ def generateReport(inputFileDir: str, outputFile: str) -> None:
         penVal = (re.search('p(\d{1,3})', file)).group(1)
 
         # Extract CSV data.
-        df = pd.read_csv(f"{inputFileDir}/{file}")
+        df = pd.read_csv(file)
 
         # Remove "collision" conflict type.
         df = df[df["type"].str.contains("COLLISION") == False]

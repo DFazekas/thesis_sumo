@@ -37,13 +37,13 @@ class Simulation:
                 # '--fcd-output', f'{outputDir}/dump/fcd_{prefix}.xml',
                 # '--statistic-output', f'{outputDir}/dump/stats_{prefix}.xml',
                 # '--netstate-dump', f'{outputDir}/dump/netstate_{prefix}.xml',
-                # '--tripinfo-output', f'{outputDir}/dump/info_{prefix}.xml',
+                '--tripinfo-output', f'{outputDir}/dump/info_{prefix}.xml',
                 '--start',
                 '--end', '3600',
                 '--quit-on-end',
                 # '--verbose',
                 # '--lateral-resolution', '0.01',
-                '--human-readable-time', 'true',
+                # '--human-readable-time', 'true',
                 # '--delay', '100',
                 '--device.rerouting.threads', '8',
                 # '--random',
@@ -203,6 +203,8 @@ class Simulation:
             vehId (str, optional): ID of the vehicle. Defaults to 'EV'.
             typeId (str, optional): ID of the vehicle type. Defaults to 'EV'.
         """
+        edges = [
+            '-256520229#0', '-42137059', '-256520230', '-296783590#1', '-296783590#0', '-296783588#1', '-296783589#1', '-456568695', '-167497901#5', '-167497901#3', '-167497901#0', '-167497902#3', '-167497902#1', '-425809290', '-244063961', '-42137058#1', '-541893638#1', '-262566799#1', '-215341872#1', '-215341869#1', '-460751618#1', '-460751619#1', '-279381291#1', '-279381290', '-128150646#1', '-128150646#0', '-128150647#1', '-166536282#1', '-61842659', '-215120969', '-33778835#1', '-131826240#1']
         routeId = 'evRoute'
-        traci.route.add(routeId, [origin, dest])
+        traci.route.add(routeId, edges)
         traci.vehicle.add(vehID=vehId, routeID=routeId, typeID=typeId)

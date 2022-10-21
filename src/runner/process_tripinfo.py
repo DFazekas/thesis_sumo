@@ -28,7 +28,6 @@ def generateReport(files: list[str], outputFile: str) -> None:
         outputFile (str): The directory for the output file.
     """
 
-    print(f"files: {files}")
     dfs = []
     for file in files:
         # Extract the values for demand and PR from the file name.

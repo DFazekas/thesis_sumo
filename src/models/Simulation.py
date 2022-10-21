@@ -42,10 +42,11 @@ class Simulation:
                 '--end', '3600',
                 '--quit-on-end',
                 # '--verbose',
-                # '--lateral-resolution', '0.01',
+                '--lateral-resolution', '0.01',
                 # '--human-readable-time', 'true',
                 # '--delay', '100',
                 '--device.rerouting.threads', '8',
+                '--time-to-impatience', '10',
                 # '--random',
                 '--no-warnings', 'true',
                 '--duration-log.disable', 'true',
@@ -65,6 +66,7 @@ class Simulation:
         # FIXME: Let the network fill before insertion the EV.
         evInsertionTime = random.randint(60 * 10, 60 * 15)
         print(f"""\tEV inserts @ ({colored(evInsertionTime ,"red")})""")
+
         # Generate random trips. The output file should be placed in the /data folder.
         subprocess.run(["python", randomTrips.__file__,
                         "-c", "src/config/trips.cfgtrips.xml",
@@ -94,7 +96,7 @@ class Simulation:
                     self.connectedVehicles, evFutureRoute)
 
             # TODO: Revert detours once EV leaves network.
-            # self.updateHaltedVehicleList()
+            self.updateHaltedVehicleList()
             self.stepForward()
 
         self.stop()
@@ -157,6 +159,10 @@ class Simulation:
 
         # There is an EV on the network. Halt all nearby vehicles.
         else:
+            if self.emergencyVehicle.getSpeed() == 0:
+                self.resumeVehicles(self.haltingVehicles)
+                return
+
             # Halt new nearby vehicles.
             vehiclesToHalt = self.emergencyVehicle.getVehiclesToHalt(
                 self.haltingVehicles)
@@ -174,7 +180,7 @@ class Simulation:
             vehicles (set[Vehicle]): The vehicles to halt.
         """
         vehiclesToHalt = vehicles.copy()
-        newSpeed = 0
+        newSpeed = 1
         for veh in vehiclesToHalt:
             veh.setSpeed(newSpeed)
             self.haltingVehicles.add(veh)
@@ -190,7 +196,7 @@ class Simulation:
             # If vehicle left the network, setSpeed will cause an error.
             if veh.isActive(self.allVehicles):
                 newSpeed = -1  # Returns speed regulation control to TraCI.
-                veh.setSpeed(newSpeed)
+                # veh.setSpeed(newSpeed)
                 # FIXME: smell - is removing objs from list that easy?
             self.haltingVehicles.remove(veh)
 
@@ -204,7 +210,7 @@ class Simulation:
             typeId (str, optional): ID of the vehicle type. Defaults to 'EV'.
         """
         edges = [
-            '-256520229#0', '-42137059', '-256520230', '-296783590#1', '-296783590#0', '-296783588#1', '-296783589#1', '-456568695', '-167497901#5', '-167497901#3', '-167497901#0', '-167497902#3', '-167497902#1', '-425809290', '-244063961', '-42137058#1', '-541893638#1', '-262566799#1', '-215341872#1', '-215341869#1', '-460751618#1', '-460751619#1', '-279381291#1', '-279381290', '-128150646#1', '-128150646#0', '-128150647#1', '-166536282#1', '-61842659', '-215120969', '-33778835#1', '-131826240#1']
+            "-256520229#0", "-42137059", "-256520230", "-296783590#1", "-296783590#0", "-296783588#1", "-296783589#1", "-456568695", "-167497901#5", "-167497901#3", "-167497901#0", "-167497902#3", "-167497902#1", "-425809290", "-244063961", "-42137058#1", "-541893638#1", "-262566799#1", "-215341872#1", "-215341869#1", "-460751618#1", "-460751619#1", "-279381291#1", "-279381290", "-128150646#1", "-128150646#0", "-128150647#1", "-166536282#1", "-61842659", "-215120969", ]
         routeId = 'evRoute'
         traci.route.add(routeId, edges)
         traci.vehicle.add(vehID=vehId, routeID=routeId, typeID=typeId)

@@ -41,13 +41,22 @@ class Vehicle:
         route = self.getRoute()
         return route[positionIndex + 1:]
 
+    def getSpeed(self) -> float:
+        """Returns the vehicle's current speed.
+
+        Returns:
+            float: Current speed.
+        """
+        return traci.vehicle.getSpeed(self.id)
+
     def setSpeed(self, speed: float) -> None:
         """Sets the vehicle's speed to a constant value.
 
         Args:
             speed (float): The new speed.
         """
-        traci.vehicle.setSpeed(self.id, speed)
+        # traci.vehicle.setSpeed(self.id, speed)
+        traci.vehicle.slowDown(self.id, speed, 5.0)
 
     def setAvoidEdge(self, edgeId: str):
         """Sets the travel time for the vehicle to infinity.
@@ -106,14 +115,14 @@ class EmergencyVehicle(Vehicle):
         # Listen for distances of all vehicles near the EV.
         objectId = self.id
         contextDomain = tc.CMD_GET_VEHICLE_VARIABLE
-        contextRange = 0
+        contextRange = 25
         variablesToReturn = [tc.VAR_DISTANCE]
         traci.vehicle.subscribeContext(
             objectId, contextDomain, contextRange, variablesToReturn)
 
         # Filter for vehicles on and neighbouring the lane of the EV.
         traci.vehicle.addSubscriptionFilterLCManeuver(
-            downstreamDist=10, upstreamDist=10)
+            downstreamDist=25, upstreamDist=50, noOpposite=False)
 
     def findNearbyVehicles(self) -> set[Vehicle]:
         """Returns a list of vehicles within range of the EV.

@@ -9,10 +9,12 @@ from termcolor import colored
 import os
 import sys
 from src.utilities import generate_graph_conflict_heatmap as heatmap
+from src.utilities import generate_graph_scatter as scatterGraph
 from sumolib import checkBinary  # noqa
 from src.runner import process_tripinfo, run_simulation, process_conflicts
 from pathlib import Path
 import time
+import pandas as pd
 
 # Enables the Windows OS to apply color in their terminal.
 os.system('color')
@@ -27,8 +29,8 @@ except ImportError:
     sys.exit(colored("please declare environment variable 'SUMO_HOME'", "red"))
 
 
-demands = [100, 200, 300]  # vehicles per hour. [1200, 1500, 1800]
-reruns = 2  # The number of times to rerun the same simulation
+demands = [2000]  # vehicles per hour. [1200, 1500, 1800]
+reruns = 4  # The number of times to rerun the same simulation
 
 # FIXME - I don't think the PR is working. Check both 0% and 100%.
 # FIXME - Compare thesis with debug code. It runs 5 seconds. Why?
@@ -105,8 +107,8 @@ def main(sumoBinary, options):
     # Get all penetration vType distribution files.
     path = "src/config/vTypes"
     fileNames = os.listdir(path)
-    vTypeFile = [f'{path}/{name}' for name in fileNames]
-    vTypeFiles = [vTypeFile[0]]
+    vTypeFiles = [f'{path}/{name}' for name in fileNames]
+    # vTypeFiles = ["src/config/vTypes/100_0.add.xml"]
 
     # Run grid network x100 at 1000 veh/hr and 0% CVs, average the outputs, aggregrate the SSM data. Repeat for 25%, 50%, 75%, and 100% CVs. Repeat for 1500 veh/hr and 2000 veh/hr.
     # Expecting: 15 data files.
@@ -142,7 +144,7 @@ def main(sumoBinary, options):
             averageTripinfo(demand, penetrationRatio)
 
     # Aggregate statistics into single report.
-    generateConflictReport()
+    # generateConflictReport()
     generateTripinfoReport()
 
     # Generate SSM heatmap chart.
@@ -151,6 +153,16 @@ def main(sumoBinary, options):
                          f"{caseStudyDir}/output/graphs")
     print(
         f"""\t{colored('[✓]', 'green')} SSM heatmap generation complete.""")
+
+    # TODO: Generate graphs based on Tripinfo.
+    tripinfoData = pd.read_csv(
+        "src/case_study_real_world/output/tripinfo_report.csv", index_col=False)
+    scatterGraph.main(data=tripinfoData,
+                      x='Penetration (%)', col='Demand (veh/hr)',
+                      y='Duration',
+                      title='Penetration Vs. Duration at Varying Demands',
+                      xLabel='PR (%)', yLabel='Duration (sec)',
+                      outputFilepath='src\case_study_real_world\output\graphs/trip_bar.png')
 
 
 def clearOutputDirectory():

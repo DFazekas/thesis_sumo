@@ -11,7 +11,7 @@ import sys
 from src.utilities import generate_graph_conflict_heatmap as heatmap
 from src.utilities import generate_graph_scatter as scatterGraph
 from sumolib import checkBinary  # noqa
-from src.runner import process_tripinfo, run_simulation, process_conflicts
+from src.runner import process_FCDs, process_tripinfo, run_simulation, process_conflicts
 from pathlib import Path
 import time
 import pandas as pd
@@ -28,7 +28,8 @@ try:
 except ImportError:
     sys.exit(colored("please declare environment variable 'SUMO_HOME'", "red"))
 
-
+# FIXME - There only seems to be ~230 cars on the network at any moment.
+# FIXME - EV doesn't always drive on incoming traffic. Lower its safety checks.
 demands = [2000]  # vehicles per hour. [1200, 1500, 1800]
 reruns = 4  # The number of times to rerun the same simulation
 
@@ -71,6 +72,21 @@ def averageTripinfo(demand, penetrationRatio):
         f"\t{colored('[✓]', 'green')} Tripinfo ({colored(f'd{demand}','magenta')}_{colored(f'p{penetrationRatio}', 'cyan')}) processing complete.")
 
 
+def averageFCDs(demand, penetrationRatio):
+    dataDir = f"{caseStudyDir}/output/fcd"
+    fileNames = filter(os.listdir(dataDir), [
+        f"fcd_d{demand}_p{penetrationRatio}"])
+    files = [
+        f"{dataDir}/{fileName}" for fileName in fileNames]
+    process_FCDs.averageResults(
+        files, f"{caseStudyDir}/output/stats/fcd_d{demand}_p{penetrationRatio}.csv")
+    print(
+        f"\t>>> Processing ({colored(len(fileNames), 'yellow')}) ({colored(f'd{demand}','magenta')}_{colored(f'p{penetrationRatio}', 'cyan')}) FCD files...")
+
+    print(
+        f"\t{colored('[✓]', 'green')} FCD ({colored(f'd{demand}','magenta')}_{colored(f'p{penetrationRatio}', 'cyan')}) processing complete.")
+
+
 def generateConflictReport():
     print("""\n> Generating SSM report file...""")
     ssmStatPath = f"{caseStudyDir}/output/stats"
@@ -95,6 +111,19 @@ def generateTripinfoReport():
     process_tripinfo.generateReport(files, outputFileName)
     print(
         f"""\t{colored('[✓]', 'green')} Tripinfo report generation complete.""")
+
+
+def generateFCDReport():
+    print("""\n> Generating FCD report file...""")
+    dir = f"{caseStudyDir}/output/stats"
+    fileNames = filter(os.listdir(dir), [
+        f"fcd_"])
+    files = [
+        f"{dir}/{fileName}" for fileName in fileNames]
+    outputFileName = f"{caseStudyDir}/output/fcd_report.csv"
+    process_tripinfo.generateReport(files, outputFileName)
+    print(
+        f"""\t{colored('[✓]', 'green')} FCD report generation complete.""")
 
 
 def main(sumoBinary, options):
@@ -143,9 +172,13 @@ def main(sumoBinary, options):
             # Average the tripinfo results for each rerun.
             averageTripinfo(demand, penetrationRatio)
 
+            # Average the FCD results for each rerun.
+            averageFCDs(demand, penetrationRatio)
+
     # Aggregate statistics into single report.
     # generateConflictReport()
     generateTripinfoReport()
+    generateFCDReport()
 
     # Generate SSM heatmap chart.
     print("""\n> Generating SSM heatmap chart...""")
@@ -170,7 +203,8 @@ def clearOutputDirectory():
     folders = [f"{caseStudyDir}/output/ssm",
                f"{caseStudyDir}/output/stats",
                f"{caseStudyDir}/output/dump",
-               f"{caseStudyDir}/output/fcd"]
+               f"{caseStudyDir}/output/fcd",
+               f"{caseStudyDir}/output/graphs"]
 
     print(f"""> Deleting old data...""")
 

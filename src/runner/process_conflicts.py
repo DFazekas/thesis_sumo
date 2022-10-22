@@ -50,7 +50,7 @@ def averageConflicts(files, outputFile):
 
     # Merge and average all dataframes by 'type' column.
     df = pd.concat(runData).replace(
-        0, np.nan).groupby("type", as_index=False).mean()
+        0, np.nan).groupby("type", as_index=False).median()
 
     # Add missing 'type' rows with value of zero.
     for col in desiredCols:

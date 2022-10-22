@@ -39,6 +39,8 @@
 
     <!-- ~~~~~~~~ SSM Device ~~~~~~~~ -->
     <param key="has.ssm.device" value="true" />
+    <param key="has.tripinfo.device" value="true" />
+    <param key="has.fcd.device" value="true" />
     <param key="device.ssm.measures" value="TTC" />
     <!-- <param key="device.ssm.thresholds" value="3.0" />
     <param key="device.ssm.range" value="20.0" /> -->

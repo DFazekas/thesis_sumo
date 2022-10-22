@@ -5,23 +5,22 @@ import re
 
 def averageResults(files, outputFile):
     runData = []
-    cols = ['id', 'duration', 'waitingTime',
-            'timeLoss', 'waitingCount']
+    cols = ['id', 'speed']
     for file in files:
-        data = xml_to_csv.parse_XML(file, cols)
-        df = data[data['id'].str.contains("EV")]
-        runData.append(df)
+        data = xml_to_csv.parse_XML(file, cols).dropna()
+        runData.append(data)
 
-    data = pd.concat(runData).groupby('id')[['duration', 'waitingTime',
-                                             'timeLoss', 'waitingCount']].agg(lambda x: x.astype(float).median())
+    data = pd.concat(runData).groupby('id')[['speed']].agg(
+        lambda x: x.astype(float).median())
+
     data.to_csv(outputFile, sep=',', index=False)
 
 
 def generateReport(files: list[str], outputFile: str) -> None:
-    """Merges, cleans, and formats all Tripinfo stat files. Exports as CSV.
+    """Merges, cleans, and formats all FCD stat files. Exports as CSV.
 
     Args:
-        inputFileDir (str): The directory of the Tripinfo stat files.
+        inputFileDir (str): The directory of the stat files.
         outputFile (str): The directory for the output file.
     """
 

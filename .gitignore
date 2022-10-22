@@ -4,8 +4,10 @@
 **/ssm/*
 **/stats/*
 **/log.txt
-**/output/dump/*
 **/output/graphs/*
-**/output/fcd/*
-**/output/ssm/*
-**/output/stats/*
+
+**/info_*.csv
+**/ssm_*.csv
+**/tripinfo_*.csv
+**/fcd_*.csv
+**/conflict_*.csv

@@ -94,7 +94,7 @@ def generateConflictReport():
         f"ssm"])
     files = [
         f"{ssmStatPath}/{fileName}" for fileName in fileNames]
-    ssmReportFile = f"{caseStudyDir}/output/report.csv"
+    ssmReportFile = f"{caseStudyDir}/output/conflict_report.csv"
     process_conflicts.generateReport(files, ssmReportFile)
     print(
         f"""\t{colored('[✓]', 'green')} SSM report generation complete.""")
@@ -176,13 +176,13 @@ def main(sumoBinary, options):
             averageFCDs(demand, penetrationRatio)
 
     # Aggregate statistics into single report.
-    # generateConflictReport()
+    generateConflictReport()
     generateTripinfoReport()
     generateFCDReport()
 
     # Generate SSM heatmap chart.
     print("""\n> Generating SSM heatmap chart...""")
-    heatmap.process_file(f"{caseStudyDir}/output/report.csv",
+    heatmap.process_file(f"{caseStudyDir}/output/conflict_report.csv",
                          f"{caseStudyDir}/output/graphs")
     print(
         f"""\t{colored('[✓]', 'green')} SSM heatmap generation complete.""")

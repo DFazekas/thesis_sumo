@@ -169,8 +169,8 @@ class EmergencyVehicle(Vehicle):
             set[Vehicle]: List of vehicles to halt.
         """
 
-        vehiclesToHalt = set()
-        for nearbyVeh in self.nearbyVehicles:
-            if nearbyVeh.id not in (haltedVeh.id for haltedVeh in haltedVehicles):
-                vehiclesToHalt.add(nearbyVeh)
-        return vehiclesToHalt
+        # vehiclesToHalt = set()
+        # for nearbyVeh in self.nearbyVehicles:
+        #     if nearbyVeh.id not in (haltedVeh.id for haltedVeh in haltedVehicles):
+        #         vehiclesToHalt.add(nearbyVeh)
+        return self.nearbyVehicles

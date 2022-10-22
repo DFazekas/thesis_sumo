@@ -6,3 +6,6 @@
 **/log.txt
 **/output/dump/*
 **/output/graphs/*
+**/output/fcd/*
+**/output/ssm/*
+**/output/stats/*

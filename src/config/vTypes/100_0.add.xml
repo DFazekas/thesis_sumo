@@ -2,7 +2,7 @@
 
   <vTypeDistribution id="civilianVehicles">
     <!-- Ordinary Civilian vehicle -->
-    <vType id="Regular" accel="3.5" decel="4.5" emergencyDecel="8.0" length="5.0" minGap="1.5" maxSpeed="50.0" sigma="0.5" actionStepLength="1.0" color="white" impatience="0.5" probability="0">
+    <vType id="Regular" accel="3.5" decel="4.5" emergencyDecel="8.0" length="5.0" minGap="1.5" maxSpeed="50.0" sigma="0.5" actionStepLength="1.0" color="white" impatience="0.5" lcOpposite="0" probability="0">
       <!-- ~~~~~~~~ SSM Device ~~~~~~~~ -->
       <!-- <param key="has.ssm.device" value="true" />
       <param key="device.ssm.measures" value="TTC" /> -->

@@ -28,4 +28,3 @@ class Detour:
             # Recalculate route, if necessary.
             if sharedEdges:
                 veh.recalculateRoute()
-                print(f"\tAfter: {veh.getFutureRoute()}")

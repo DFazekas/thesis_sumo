@@ -180,7 +180,7 @@ class Simulation:
             vehicles (set[Vehicle]): The vehicles to halt.
         """
         vehiclesToHalt = vehicles.copy()
-        newSpeed = 1
+        newSpeed = 0
         for veh in vehiclesToHalt:
             veh.setSpeed(newSpeed)
             self.haltingVehicles.add(veh)

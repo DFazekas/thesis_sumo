@@ -1,3 +1,4 @@
+from enum import Enum
 import subprocess
 import random
 import traci
@@ -5,6 +6,12 @@ import randomTrips
 from .Vehicle import Vehicle, EmergencyVehicle
 from .Detour import Detour
 from termcolor import colored
+
+
+class EV_State(Enum):
+    PENDING = 0
+    DISPATCHED = 1
+    COMPLETE = 2
 
 
 class Simulation:
@@ -18,6 +25,8 @@ class Simulation:
         self.allVehicles: set[Vehicle] = set()
         # List of CVs.
         self.connectedVehicles: set[Vehicle] = set()
+        # A marker that tracks if the EV has completed its trip.
+        self.evState: EV_State = EV_State.PENDING
         # Reference to the EV.
         self.emergencyVehicle: EmergencyVehicle = None
         # List of halting vehicles.
@@ -90,9 +99,13 @@ class Simulation:
             # Insert the EV into the network.
             if self.getTime() == evInsertionTime:
                 self.insertEv(self.evTrip["origin"], self.evTrip["dest"])
-
             # Rerouting is only necessary while EVs are actively on the network.
             if self.emergencyVehicle != None:
+                # We can't control exactly when the EV enters the network.
+                # So now is the first guaranteed moment to change EV state.
+                if self.evState == EV_State.PENDING:
+                    self.evState = EV_State.DISPATCHED
+
                 # Find all vehicles with common edges in their route. Detour them all.
                 evFutureRoute = self.emergencyVehicle.getFutureRoute()
                 Detour.detourVehicles(
@@ -110,6 +123,8 @@ class Simulation:
         Returns:
             bool: `True` if vehicles exist on network. `False` otherwise.
         """
+        if self.emergencyVehicle == None and self.evState == EV_State.DISPATCHED:
+            return False
         numVehicles = traci.simulation.getMinExpectedNumber()
         return True if numVehicles > 0 else False
 

@@ -1,9 +1,7 @@
 from .utils import runPythonFile
 from ..utilities import xml_to_csv
-from functools import reduce
 import pandas as pd
 import numpy as np
-import os
 import re
 
 CONFLICTS_LIST = {
@@ -37,7 +35,7 @@ def main(inputFilePath, outputFilePath):
     )
 
 
-def averageConflicts(files, outputFile):
+def averageResults(files, outputFile):
     desiredCols = ['CROSSING', 'FOLLOWING', 'MERGING']
     cols = ['type']
     # Flatten. Average. Export as CSV.
@@ -104,3 +102,43 @@ def generateReport(files: list[str], outputFile: str) -> None:
 
     # Export as CSV file.
     dfMerged.to_csv(outputFile, index=False)
+
+
+def aggregate(files: list[str], outputFile: str):
+    runData = []
+    desiredCols = ['CROSSING', 'FOLLOWING', 'MERGING']
+    cols = ['type']
+    for file in files:
+        # Extract the values for demand and PR from the file name.
+        demand = (re.search('d(\d{2,5})', file)).group(1)
+        pr = (re.search('p(\d{1,3})', file)).group(1)
+        run = (re.search('r(\d{1,3})', file)).group(1)
+
+        data = xml_to_csv.parse_XML(file, cols).dropna()
+        data['type'] = data['type'].replace(CONFLICTS_LIST)
+        data = data.groupby(['type'], as_index=False).size()
+        # Remove "collision" conflict type.
+        data = data[data["type"].str.contains("COLLISION") == False]
+
+        # Add missing 'type' rows with value of zero.
+        for col in desiredCols:
+            if (data['type'].eq(col)).any() == False:
+                tempDf = pd.DataFrame({'type': [col], 'size': [0]})
+                data = pd.concat((data, tempDf), axis=0)
+
+        data['Demand'] = demand
+        data['Penetration'] = pr
+        data['Run'] = run
+        runData.append(data)
+
+    # Pivot conflict types into columns.
+    dfMerged = pd.concat(runData)
+    dfMerged = dfMerged.pivot_table(values='size', index=[
+                                    'Penetration', 'Demand', 'Run'], columns='type')
+    dfMerged.reset_index(inplace=True)
+    dfMerged.columns.name = None
+
+    # Capitalize column names.
+    dfMerged.columns = dfMerged.columns.str.capitalize()
+
+    dfMerged.to_csv(outputFile, sep=',', index=False)

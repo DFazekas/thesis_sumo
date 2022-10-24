@@ -6,8 +6,8 @@
 **/log.txt
 **/output/graphs/*
 
-**/info_*.csv
+**/tripinfo_*
+**/info_*
 **/ssm_*.csv
-**/tripinfo_*.csv
-**/fcd_*.csv
+**/fcd_*
 **/conflict_*.csv

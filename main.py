@@ -15,6 +15,7 @@ from src.runner import process_FCDs, process_tripinfo, run_simulation, process_c
 from pathlib import Path
 import time
 import pandas as pd
+from typing import Callable
 
 # Enables the Windows OS to apply color in their terminal.
 os.system('color')
@@ -42,88 +43,43 @@ def filter(string, substr):
     return [str for str in string if any(sub in str for sub in substr)]
 
 
-def averageConflicts(demand, penetrationRatio):
-    ssmPath = f"{caseStudyDir}/output/ssm"
-    ssmFiles = filter(os.listdir(ssmPath), [
-        f"ssm_d{demand}_p{penetrationRatio}"])
-    ssmAbsFiles = [
-        f"{ssmPath}/{ssmFile}" for ssmFile in ssmFiles]
-    print(
-        f"\t>>> Processing ({colored(len(ssmAbsFiles), 'yellow')}) ({colored(f'd{demand}','magenta')}_{colored(f'p{penetrationRatio}', 'cyan')}) conflict files...")
-    process_conflicts.averageConflicts(
-        ssmAbsFiles,
-        f"{caseStudyDir}/output/stats/ssm_d{demand}_p{penetrationRatio}.csv")
-
-    print(
-        f"\t{colored('[✓]', 'green')} SSM ({colored(f'd{demand}','magenta')}_{colored(f'p{penetrationRatio}', 'cyan')}) processing complete.")
-
-
-def averageTripinfo(demand, penetrationRatio):
-    dataDir = f"{caseStudyDir}/output/dump"
-    fileNames = filter(os.listdir(dataDir), [
-        f"info_d{demand}_p{penetrationRatio}"])
+def aggregateData(dataDirName: str, title: str, aggregator: Callable):
+    dataDir = f"{caseStudyDir}/output/{dataDirName}"
+    fileNames = os.listdir(dataDir)
     files = [
         f"{dataDir}/{fileName}" for fileName in fileNames]
+    aggregator(
+        files, f"{caseStudyDir}/output/agg/{title.lower()}.csv")
     print(
-        f"\t>>> Processing ({colored(len(fileNames), 'yellow')}) ({colored(f'd{demand}','magenta')}_{colored(f'p{penetrationRatio}', 'cyan')}) tripinfo files...")
-    process_tripinfo.averageResults(
-        files, f"{caseStudyDir}/output/stats/tripinfo_d{demand}_p{penetrationRatio}.csv")
-    print(
-        f"\t{colored('[✓]', 'green')} Tripinfo ({colored(f'd{demand}','magenta')}_{colored(f'p{penetrationRatio}', 'cyan')}) processing complete.")
+        f"\t{colored('[✓]', 'green')} {title.upper()} aggregation complete.")
 
 
-def averageFCDs(demand, penetrationRatio):
-    dataDir = f"{caseStudyDir}/output/fcd"
+def averageData(demand: int, penetrationRatio: str, dirName: str, title: str, averager: Callable):
+    # FIXME - make modular. Inject averageResults function.
+    dataDir = f"{caseStudyDir}/output/{dirName}"
     fileNames = filter(os.listdir(dataDir), [
-        f"fcd_d{demand}_p{penetrationRatio}"])
+        f"{title.lower()}_d{demand}_p{penetrationRatio}"])
     files = [
         f"{dataDir}/{fileName}" for fileName in fileNames]
-    process_FCDs.averageResults(
-        files, f"{caseStudyDir}/output/stats/fcd_d{demand}_p{penetrationRatio}.csv")
+
+    outputFile = f"{caseStudyDir}/output/stats/{title.lower()}_d{demand}_p{penetrationRatio}.csv"
+    averager(
+        files, outputFile)
     print(
-        f"\t>>> Processing ({colored(len(fileNames), 'yellow')}) ({colored(f'd{demand}','magenta')}_{colored(f'p{penetrationRatio}', 'cyan')}) FCD files...")
-
-    print(
-        f"\t{colored('[✓]', 'green')} FCD ({colored(f'd{demand}','magenta')}_{colored(f'p{penetrationRatio}', 'cyan')}) processing complete.")
+        f"\t{colored('[✓]', 'green')} {title.upper()} ({colored(f'd{demand}','magenta')}_{colored(f'p{penetrationRatio}', 'cyan')}) processing complete.")
 
 
-def generateConflictReport():
-    print("""\n> Generating SSM report file...""")
-    ssmStatPath = f"{caseStudyDir}/output/stats"
-    fileNames = filter(os.listdir(ssmStatPath), [
-        f"ssm"])
-    files = [
-        f"{ssmStatPath}/{fileName}" for fileName in fileNames]
-    ssmReportFile = f"{caseStudyDir}/output/conflict_report.csv"
-    process_conflicts.generateReport(files, ssmReportFile)
-    print(
-        f"""\t{colored('[✓]', 'green')} SSM report generation complete.""")
-
-
-def generateTripinfoReport():
-    print("""\n> Generating Tripinfo report file...""")
-    dir = f"{caseStudyDir}/output/stats"
+def generateReport(inputDirName: str, title: str, reporter: Callable):
+    dir = f"{caseStudyDir}/output/{inputDirName}"
     fileNames = filter(os.listdir(dir), [
-        f"tripinfo_"])
+        f"{title.lower()}"])
     files = [
         f"{dir}/{fileName}" for fileName in fileNames]
-    outputFileName = f"{caseStudyDir}/output/tripinfo_report.csv"
-    process_tripinfo.generateReport(files, outputFileName)
+    print(f"file count: {len(files)}")
+    outputFileName = f"{caseStudyDir}/output/{title.lower()}_report.csv"
+    reporter(files, outputFileName)
     print(
-        f"""\t{colored('[✓]', 'green')} Tripinfo report generation complete.""")
-
-
-def generateFCDReport():
-    print("""\n> Generating FCD report file...""")
-    dir = f"{caseStudyDir}/output/stats"
-    fileNames = filter(os.listdir(dir), [
-        f"fcd_"])
-    files = [
-        f"{dir}/{fileName}" for fileName in fileNames]
-    outputFileName = f"{caseStudyDir}/output/fcd_report.csv"
-    process_tripinfo.generateReport(files, outputFileName)
-    print(
-        f"""\t{colored('[✓]', 'green')} FCD report generation complete.""")
+        f"""\t{colored('[✓]', 'green')} {title.upper()} report generation complete.""")
 
 
 def main(sumoBinary, options):
@@ -132,6 +88,10 @@ def main(sumoBinary, options):
     # Delete all the previous output data.
     if options.nosim == False:
         clearOutputDirectory()
+
+    totalTic = time.perf_counter()
+    print(
+        f"\n> Running experiments...")
 
     # Get all penetration vType distribution files.
     path = "src/config/vTypes"
@@ -144,16 +104,19 @@ def main(sumoBinary, options):
 
     for dIndex, demand in enumerate(demands):
         print(
-            f"""> Applying traffic demand ({colored(f'{dIndex+1}', 'magenta')} / {colored(f'{len(demands)}', 'magenta')})...""")
+            f"""\t> Applying traffic demand ({colored(f'{dIndex+1}', 'magenta')} / {colored(f'{len(demands)}', 'magenta')})...""")
 
         for vIndex, vTypeFile in enumerate(vTypeFiles):
             print(
-                f""">> Applying CV penetration rate ({colored(f'{vIndex+1}', 'cyan')} / {colored(f'{len(vTypeFiles)}', 'cyan')})...""")
+                f"""\t\t> Applying CV penetration rate ({colored(f'{vIndex+1}', 'cyan')} / {colored(f'{len(vTypeFiles)}', 'cyan')})...""")
 
             temp = Path(vTypeFile)
             penetrationRatio = temp.stem.replace('.add', '')
 
             for runNum in list(range(reruns)):
+                print(
+                    f"""\t\t\t> Starting run ({colored(f'{runNum+1}', 'yellow')} / {colored(f'{reruns}', 'yellow')})...""")
+
                 prefix = f"d{demand}_p{penetrationRatio}_r{runNum}"
                 runStats = {"current": runNum, "total": reruns}
                 if options.nosim == False:
@@ -166,23 +129,40 @@ def main(sumoBinary, options):
                     print(
                         f"""SUMO took ({colored(f"{toc-tic:0.4f}", "red")}) seconds.""")
 
-            # Average the SSM results for each rerun.
-            averageConflicts(demand, penetrationRatio)
+            # Average the results for each rerun.
+            print(
+                f"\t\t> Averaging ({colored(f'd{demand}','magenta')}_{colored(f'p{penetrationRatio}', 'cyan')}) files...")
+            averageData(demand, penetrationRatio, "ssm", "ssm",
+                        process_conflicts.averageResults)
+            averageData(demand, penetrationRatio, "dump", "tripinfo",
+                        process_tripinfo.averageResults)
+            averageData(demand, penetrationRatio, "fcd", "fcd",
+                        process_FCDs.averageResults)
 
-            # Average the tripinfo results for each rerun.
-            averageTripinfo(demand, penetrationRatio)
+    totalToc = time.perf_counter()
+    print(
+        f"""\n{colored('[✓]', 'green')} All experiments completed in ({colored(f"{totalToc-totalTic:0.4f}", "red")}) seconds.""")
 
-            # Average the FCD results for each rerun.
-            averageFCDs(demand, penetrationRatio)
+    # Aggregate all data into a single CSV file.
+    print(
+        f"\n> Aggregating dump files...")
+    aggregateData("dump", "tripinfo", process_tripinfo.aggregate)
+    aggregateData("ssm", "ssm", process_conflicts.aggregate)
+    aggregateData("fcd", "fcd", process_FCDs.aggregate)
 
     # Aggregate statistics into single report.
-    generateConflictReport()
-    generateTripinfoReport()
-    generateFCDReport()
+    # FIXME - Join FCD with TripInfo.
+    print("""\n> Generating report files...""")
+    generateReport("stats", "tripinfo",
+                   process_tripinfo.generateReport)
+    generateReport("stats", "ssm",
+                   process_conflicts.generateReport)
+    generateReport("stats", "fcd",
+                   process_FCDs.generateReport)
 
-    # Generate SSM heatmap chart.
-    print("""\n> Generating SSM heatmap chart...""")
-    heatmap.process_file(f"{caseStudyDir}/output/conflict_report.csv",
+    # Generate charts.
+    print("""\n> Generating charts...""")
+    heatmap.process_file(f"{caseStudyDir}/output/ssm_report.csv",
                          f"{caseStudyDir}/output/graphs")
     print(
         f"""\t{colored('[✓]', 'green')} SSM heatmap generation complete.""")
@@ -204,7 +184,8 @@ def clearOutputDirectory():
                f"{caseStudyDir}/output/stats",
                f"{caseStudyDir}/output/dump",
                f"{caseStudyDir}/output/fcd",
-               f"{caseStudyDir}/output/graphs"]
+               f"{caseStudyDir}/output/graphs",
+               f"{caseStudyDir}/output/agg"]
 
     print(f"""> Deleting old data...""")
 

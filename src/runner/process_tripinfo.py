@@ -48,3 +48,31 @@ def generateReport(files: list[str], outputFile: str) -> None:
 
     # # Export as CSV file.
     dfMerged.to_csv(outputFile, index=False)
+
+
+def aggregate(files: list[str], outputFile: str) -> None:
+    runData = []
+    cols = ['duration', 'waitingTime',
+            'timeLoss', 'waitingCount']
+    for file in files:
+        # Extract the values for demand and PR from the file name.
+        demand = (re.search('d(\d{2,5})', file)).group(1)
+        pr = (re.search('p(\d{1,3})', file)).group(1)
+        run = (re.search('r(\d{1,3})', file)).group(1)
+
+        data = xml_to_csv.parse_XML(file, cols)
+        data['Demand'] = demand
+        data['Penetration'] = pr
+        data['Run'] = run
+        runData.append(data)
+
+    data = pd.concat(runData)
+
+    # Capitalize column names.
+    data.columns = data.columns.str.capitalize()
+
+    # Rename columns.
+    data = data.rename(
+        columns={'Waitingtime': 'Waiting Time', 'Waitingcount': 'Waiting Count', 'Timeloss': 'Time Loss'})
+
+    data.to_csv(outputFile, sep=',', index=False)

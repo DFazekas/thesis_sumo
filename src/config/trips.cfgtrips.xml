@@ -1,8 +1,8 @@
 <configuration>
     <allow-fringe value="True" />
     <fringe-factor value="10000.0" />
-    <insertion-rate value="100.0" />
-    <min-distance value="1500.0" />
+    <!-- <insertion-rate value="100.0" /> -->
+    <min-distance value="800.0" />
     <net-file value="config/data/grid.net.xml" />
     <trip-attributes value="departPos=&quot;random&quot; departSpeed=&quot;max&quot; type=&quot;civilianVehicles&quot; departLane=&quot;best&quot;" />
     <!-- <output-trip-file value="config/data/trips.trips.xml" /> -->

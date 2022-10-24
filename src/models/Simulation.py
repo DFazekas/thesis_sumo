@@ -82,6 +82,8 @@ class Simulation:
                         "-c", "src/config/trips.cfgtrips.xml",
                         "--net-file", networkFilePath,
                         "--insertion-rate", f"{demand}",
+                        '--fringe-junctions',
+                        # '--binomial', f"{int(demand/2)}",
                         "--validate",
                         # '--output-trip-file', tripFilePath
                         '--route-file', tripFilePath
@@ -110,7 +112,7 @@ class Simulation:
                     self.connectedVehicles, evFutureRoute)
 
             # TODO: Revert detours once EV leaves network.
-            self.updateHaltedVehicleList()
+            # self.updateHaltedVehicleList()
             self.stepForward()
 
         self.stop()

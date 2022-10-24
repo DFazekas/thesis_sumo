@@ -8,8 +8,9 @@ import optparse
 from termcolor import colored
 import os
 import sys
-from src.utilities import generate_graph_conflict_heatmap as heatmap
+from src.utilities import generate_graph_bar, generate_graph_conflict_heatmap as heatmap
 from src.utilities import generate_graph_scatter as scatterGraph
+from src.utilities import generate_graph_bar as barGraph
 from sumolib import checkBinary  # noqa
 from src.runner import process_FCDs, process_tripinfo, run_simulation, process_conflicts
 from pathlib import Path
@@ -29,13 +30,10 @@ try:
 except ImportError:
     sys.exit(colored("please declare environment variable 'SUMO_HOME'", "red"))
 
-# FIXME - There only seems to be ~230 cars on the network at any moment.
-# FIXME - EV doesn't always drive on incoming traffic. Lower its safety checks.
-demands = [2000]  # vehicles per hour. [1200, 1500, 1800]
-reruns = 4  # The number of times to rerun the same simulation
 
-# FIXME - I don't think the PR is working. Check both 0% and 100%.
-# FIXME - Compare thesis with debug code. It runs 5 seconds. Why?
+demands = [10, 20, 30]  # vehicles per hour. [1200, 1500, 1800]
+reruns = 8  # The number of times to rerun the same simulation
+
 caseStudyDir = "src/case_study_real_world"
 
 
@@ -170,12 +168,52 @@ def main(sumoBinary, options):
     # TODO: Generate graphs based on Tripinfo.
     tripinfoData = pd.read_csv(
         "src/case_study_real_world/output/tripinfo_report.csv", index_col=False)
-    scatterGraph.main(data=tripinfoData,
-                      x='Penetration (%)', col='Demand (veh/hr)',
-                      y='Duration',
-                      title='Penetration Vs. Duration at Varying Demands',
-                      xLabel='PR (%)', yLabel='Duration (sec)',
-                      outputFilepath='src\case_study_real_world\output\graphs/trip_bar.png')
+    barGraph.main(data=tripinfoData,
+                  x='Demand (veh/hr)', hue='Penetration (%)',
+                  y='Duration',
+                  xLabel='Demand (veh/hr)', yLabel='Duration (sec)',
+                  legendTitle="PR (%)",
+                  outputFilepath='src\case_study_real_world\output\graphs/bargraph_duration.png')
+    print(
+        f"""\t{colored('[✓]', 'green')} Demand Vs. Duration bargraph generated.""")
+
+    barGraph.main(data=tripinfoData,
+                  x='Demand (veh/hr)', hue='Penetration (%)',
+                  y='Waitingtime',
+                  xLabel='Demand (veh/hr)', yLabel='Waitingtime (sec)',
+                  legendTitle="PR (%)",
+                  outputFilepath='src\case_study_real_world\output\graphs/bargraph_waitingtime.png')
+    print(
+        f"""\t{colored('[✓]', 'green')} Demand Vs. Waiting Time bargraph generated.""")
+
+    barGraph.main(data=tripinfoData,
+                  x='Demand (veh/hr)', hue='Penetration (%)',
+                  y='Timeloss',
+                  xLabel='Demand (veh/hr)', yLabel='Timeloss (sec)',
+                  legendTitle="PR (%)",
+                  outputFilepath='src\case_study_real_world\output\graphs/bargraph_timeloss.png')
+    print(
+        f"""\t{colored('[✓]', 'green')} Demand Vs. Time Loss bargraph generated.""")
+
+    barGraph.main(data=tripinfoData,
+                  x='Demand (veh/hr)', hue='Penetration (%)',
+                  y='Waitingcount',
+                  xLabel='Demand (veh/hr)', yLabel='Waiting Count',
+                  legendTitle="PR (%)",
+                  outputFilepath='src\case_study_real_world\output\graphs/bargraph_waitingcount.png')
+    print(
+        f"""\t{colored('[✓]', 'green')} Demand Vs. Waiting Count bargraph generated.""")
+
+    speedData = pd.read_csv(
+        "src/case_study_real_world/output/fcd_report.csv", index_col=False)
+    barGraph.main(data=speedData,
+                  x='Demand (veh/hr)', hue='Penetration (%)',
+                  y='Speed',
+                  xLabel='Demand (veh/hr)', yLabel='Avg. Speed (m/s)',
+                  legendTitle="PR (%)",
+                  outputFilepath='src\case_study_real_world\output\graphs/bargraph_avgspeed.png')
+    print(
+        f"""\t{colored('[✓]', 'green')} Demand Vs. Avg Speed bargraph generated.""")
 
 
 def clearOutputDirectory():

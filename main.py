@@ -12,7 +12,7 @@ from src.utilities import generate_graph_bar, generate_graph_conflict_heatmap as
 from src.utilities import generate_graph_scatter as scatterGraph
 from src.utilities import generate_graph_bar as barGraph
 from sumolib import checkBinary  # noqa
-from src.runner import process_FCDs, process_tripinfo, run_simulation, process_conflicts
+from src.runner import generate_graphs, process_FCDs, process_tripinfo, run_simulation, process_conflicts
 from pathlib import Path
 import time
 import pandas as pd
@@ -168,71 +168,10 @@ def main(sumoBinary, options):
     mergeAllData()
 
     # Aggregate statistics into single report.
-    # FIXME - Join FCD with TripInfo.
     print("""\n> Generating report files...""")
-    generateReport("stats", "tripinfo",
-                   process_tripinfo.generateReport)
-    generateReport("stats", "ssm",
-                   process_conflicts.generateReport)
-    generateReport("stats", "fcd",
-                   process_FCDs.generateReport)
 
     # Generate charts.
-    print("""\n> Generating charts...""")
-    heatmap.process_file(f"{caseStudyDir}/output/ssm_report.csv",
-                         f"{caseStudyDir}/output/graphs")
-    print(
-        f"""\t{colored('[✓]', 'green')} SSM heatmap generation complete.""")
-
-    # TODO: Generate graphs based on Tripinfo.
-    tripinfoData = pd.read_csv(
-        "src/case_study_real_world/output/tripinfo_report.csv", index_col=False)
-    barGraph.main(data=tripinfoData,
-                  x='Demand (veh/hr)', hue='Penetration (%)',
-                  y='Duration',
-                  xLabel='Demand (veh/hr)', yLabel='Duration (sec)',
-                  legendTitle="PR (%)",
-                  outputFilepath='src\case_study_real_world\output\graphs/bargraph_duration.png')
-    print(
-        f"""\t{colored('[✓]', 'green')} Demand Vs. Duration bargraph generated.""")
-
-    barGraph.main(data=tripinfoData,
-                  x='Demand (veh/hr)', hue='Penetration (%)',
-                  y='Waitingtime',
-                  xLabel='Demand (veh/hr)', yLabel='Waitingtime (sec)',
-                  legendTitle="PR (%)",
-                  outputFilepath='src\case_study_real_world\output\graphs/bargraph_waitingtime.png')
-    print(
-        f"""\t{colored('[✓]', 'green')} Demand Vs. Waiting Time bargraph generated.""")
-
-    barGraph.main(data=tripinfoData,
-                  x='Demand (veh/hr)', hue='Penetration (%)',
-                  y='Timeloss',
-                  xLabel='Demand (veh/hr)', yLabel='Timeloss (sec)',
-                  legendTitle="PR (%)",
-                  outputFilepath='src\case_study_real_world\output\graphs/bargraph_timeloss.png')
-    print(
-        f"""\t{colored('[✓]', 'green')} Demand Vs. Time Loss bargraph generated.""")
-
-    barGraph.main(data=tripinfoData,
-                  x='Demand (veh/hr)', hue='Penetration (%)',
-                  y='Waitingcount',
-                  xLabel='Demand (veh/hr)', yLabel='Waiting Count',
-                  legendTitle="PR (%)",
-                  outputFilepath='src\case_study_real_world\output\graphs/bargraph_waitingcount.png')
-    print(
-        f"""\t{colored('[✓]', 'green')} Demand Vs. Waiting Count bargraph generated.""")
-
-    speedData = pd.read_csv(
-        "src/case_study_real_world/output/fcd_report.csv", index_col=False)
-    barGraph.main(data=speedData,
-                  x='Demand (veh/hr)', hue='Penetration (%)',
-                  y='Speed',
-                  xLabel='Demand (veh/hr)', yLabel='Avg. Speed (m/s)',
-                  legendTitle="PR (%)",
-                  outputFilepath='src\case_study_real_world\output\graphs/bargraph_avgspeed.png')
-    print(
-        f"""\t{colored('[✓]', 'green')} Demand Vs. Avg Speed bargraph generated.""")
+    generate_graphs.main(caseStudyDir)
 
 
 def clearOutputDirectory():

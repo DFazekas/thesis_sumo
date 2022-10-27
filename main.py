@@ -80,6 +80,24 @@ def generateReport(inputDirName: str, title: str, reporter: Callable):
         f"""\t{colored('[✓]', 'green')} {title.upper()} report generation complete.""")
 
 
+def mergeAllData():
+    fcdFileName = "src\case_study_real_world\output/agg/fcd.csv"
+    tripinfoFileName = "src\case_study_real_world\output/agg/tripinfo.csv"
+    ssmFileName = "src\case_study_real_world\output/agg\ssm.csv"
+
+    fcd = pd.read_csv(fcdFileName)
+    tripinfo = pd.read_csv(tripinfoFileName)
+    ssm = pd.read_csv(ssmFileName)
+
+    tripinfo_fcd = pd.merge(tripinfo, fcd, how='left', left_on=[
+        "Demand", "Penetration", "Run"], right_on=["Demand", "Penetration", "Run"])
+    all = pd.merge(tripinfo_fcd, ssm, how='left', left_on=[
+        "Demand", "Penetration", "Run"], right_on=["Demand", "Penetration", "Run"])
+
+    all = all.sort_values(by=["Demand", "Penetration", "Run"])
+    all.to_csv("src\case_study_real_world\output/alldata.csv", index=False)
+
+
 def main(sumoBinary, options):
     """Generates all prerequisite files to run the simulation, export data, and process the data."""
 
@@ -147,6 +165,7 @@ def main(sumoBinary, options):
     aggregateData("dump", "tripinfo", process_tripinfo.aggregate)
     aggregateData("ssm", "ssm", process_conflicts.aggregate)
     aggregateData("fcd", "fcd", process_FCDs.aggregate)
+    mergeAllData()
 
     # Aggregate statistics into single report.
     # FIXME - Join FCD with TripInfo.

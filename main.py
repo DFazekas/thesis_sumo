@@ -31,8 +31,8 @@ except ImportError:
     sys.exit(colored("please declare environment variable 'SUMO_HOME'", "red"))
 
 
-demands = [10, 20, 30]  # vehicles per hour. [1200, 1500, 1800]
-reruns = 8  # The number of times to rerun the same simulation
+demands = [1500, 2500, 3500]  # vehicles per hour. [1200, 1500, 1800]
+reruns = 30  # The number of times to rerun the same simulation
 
 caseStudyDir = "src/case_study_real_world"
 
@@ -116,8 +116,6 @@ def main(sumoBinary, options):
     # vTypeFiles = ["src/config/vTypes/100_0.add.xml"]
 
     # Run grid network x100 at 1000 veh/hr and 0% CVs, average the outputs, aggregrate the SSM data. Repeat for 25%, 50%, 75%, and 100% CVs. Repeat for 1500 veh/hr and 2000 veh/hr.
-    # Expecting: 15 data files.
-
     for dIndex, demand in enumerate(demands):
         print(
             f"""\t> Applying traffic demand ({colored(f'{dIndex+1}', 'magenta')} / {colored(f'{len(demands)}', 'magenta')})...""")
